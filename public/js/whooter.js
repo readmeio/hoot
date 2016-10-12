@@ -9,6 +9,13 @@ $(function() {
     return false;
   });
 
+  $('#post textarea').keyup(function() {
+    var amt = 140 - $('#post textarea').val().length;
+    $('#post .left').text(amt);
+    $('#post .left').toggleClass('over', amt < 0);
+    $('#post button').attr('disabled', amt < 0 || amt >= 140);
+  }).trigger('keyup');
+
   $('#post').submit(function() {
     $.post('/api/hoot', {
       'post': $('#post textarea').val(),

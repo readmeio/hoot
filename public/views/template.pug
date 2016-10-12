@@ -52,6 +52,16 @@ head
         outline: 0 none;
     }
 
+    #post .left {
+      float: right;
+      padding: 18px 27px;
+      color: #999;
+    }
+
+    #post .left.over {
+      color: red;
+    }
+
     #post button {
         padding: 11px 30px;
         border-radius: 3px;
@@ -73,6 +83,9 @@ head
         fill: #fff;
         position: relative;
         top: 2px;
+    }
+    #post button[disabled] {
+      background: #b9e0ef;
     }
 
     .post {
