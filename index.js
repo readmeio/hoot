@@ -45,6 +45,12 @@ app.get('/api/timeline/:username', function (req, res) {
   })
 });
 
+app.get('/api/hoot/:id', function (req, res) {
+  Hoot.find({_id: req.params.id}, function(err, hoots) {
+    res.json(hoots);
+  })
+});
+
 app.post('/api/hoot/:id/favorite', function (req, res) {
   Hoot.findOne({_id: req.params.id}, function(err, hoot) {
     remove(hoot.favorites, 'gkoberger');
@@ -74,6 +80,12 @@ app.get('/:page', function (req, res, next) {
   if(['login', 'home'].indexOf(page) < 0) return next();
   
   res.render(page);
+});
+
+app.get('/hoot/:id', function (req, res, next) {
+  res.render('home', {
+    'hoot': req.params.id,
+  });
 });
 
 app.get('/@:user', function (req, res, next) {

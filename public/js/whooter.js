@@ -23,14 +23,24 @@ $(function() {
     }, function(hoot) {
       $('.hoots').prepend(addHoot(hoot));
     });
+
+    $('input, textarea', $('#post')).val("");
+
+    var url = window.location.href.split('?')[0];
+    history.pushState({}, $('title').text(), url);
+
     return false;
   });
 
   var $hoots = $('.hoots');
   if($hoots.length) {
-    var user = '';
-    if($hoots.data('username')) user = '/' + $hoots.data('username');
-    $.get('/api/timeline' + user, function(data) {
+
+    var url = '/api/timeline';
+
+    if($hoots.data('username')) url = '/api/timeline/' + $hoots.data('username');
+    if($hoots.data('hoot')) url = '/api/hoot/' + $hoots.data('hoot');
+
+    $.get(url, function(data) {
       $('.loader').remove();
       $('.empty').show();
 
@@ -139,6 +149,6 @@ function markdown(text) {
   text = text.replace(bold, '<strong>$1</strong>');            
   text = text.replace(italic, '<em>$1</em>');            
   text = text.replace(link, '<a href="$1">$1</a>');            
-  text = text.replace(username, '<a href="/@$1">$1</a>');            
+  text = text.replace(username, '<a href="/$1">$1</a>');            
   return text;
 };
