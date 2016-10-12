@@ -1,6 +1,7 @@
 head
   script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
   script(src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js")
+  script(src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.5.3/jquery.timeago.min.js")
   script(src="/js/whooter.js")
   link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css")
   style.
@@ -154,6 +155,15 @@ head
       font-size: 14px;
       text-decoration: none;
     }
+
+    .post .actions time {
+      color: #BBB;
+    }
+
+    .post .actions a:hover time {
+      color: #00ACEE;
+    }
+
     .post .favorite .fa {
       margin-right: 5px;
     }

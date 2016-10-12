@@ -44,6 +44,10 @@ $(function() {
       $('#post [name=replyto]').val(urlParams.get('replyto'));
     }
   }
+
+  setInterval(function() {
+    $(".timestamp").timeago();
+  }, 10000);
 });
 
 function addHoot(hoot) {
@@ -73,6 +77,22 @@ function addHoot(hoot) {
   var $actions = $('<div>', {'class': 'actions'});
   $body.append($actions);
 
+  var $timestamp_a = $('<a>', {
+    'href': '/hoot/' + hoot._id
+  });
+
+  var $timestamp = $('<time>', {
+    class: 'timestamp',
+    datetime: hoot.createdAt,
+    text: $.timeago(hoot.createdAt),
+  });
+
+  $timestamp_a.append($timestamp);
+  $actions.append($timestamp_a);
+
+
+  $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
+  
   var $favorite = $('<a>', {
     href: '',
     'class': 'favorite',
