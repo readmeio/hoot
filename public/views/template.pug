@@ -146,6 +146,25 @@ head
       display: none;
     }
 
+    .loader {
+      border: 5px solid #00ACEE;
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+      margin: auto;
+      border-bottom: 5px solid #c2eaf9;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
 body
   a(href="/login") log in
   h1

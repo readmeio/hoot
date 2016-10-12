@@ -44,6 +44,8 @@ $(function() {
 });
 
 function addHoot(hoot) {
+  $('.loader').remove();
+
   var $post = $('<div>', {
     'class': 'post',
   });
