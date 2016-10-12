@@ -7,6 +7,15 @@ head
     * {
         box-sizing: border-box;
     }
+    a {
+      color: #00ACEE;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #068EC2;
+      text-decoration: none;
+    }
+
     body {
         margin: 0;
         background: #00ACEE;
@@ -112,12 +121,29 @@ head
 
     .post .username {
       font-weight: bold;
-      color: #00ACEE;
       text-decoration: none;
+    }
+    .post .byline {
+      margin-bottom: 10px;
+      display: block;
     }
     .post .username span {
       font-weight: normal;
       color: #8ed0e9;
+    }
+    .post .replying {
+      margin-left: 15px;
+      font-size: 11px;
+      color: #BBB;
+    }
+    .post .replying:hover {
+      color: #00ACEE;
+    }
+    .post .body p {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #555;
     }
 
     .post .actions {
@@ -125,7 +151,6 @@ head
     }
 
     .post .actions a {
-      color: #00ACEE;
       font-size: 14px;
       text-decoration: none;
     }
@@ -164,6 +189,23 @@ head
             transform: rotate(360deg);
         }
     }
+
+    .empty {
+      text-align: center;
+      color: #BBB;
+      padding: 90px;
+      display: none;
+    }
+    .empty strong {
+      color: #777;
+    }
+    .empty .fa {
+      font-size: 60px;
+      display: block;
+      color: #00ACEE;
+      margin-bottom: 20px;
+    }
+
 
 body
   a(href="/login") log in

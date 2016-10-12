@@ -4,7 +4,7 @@ var urlParams = new URLSearchParams(window.location.search);
 
 $(function() {
   $('#login').submit(function() {
-    $.cookie('whooter_username', $('[name=username]').val());
+    $.cookie('whooter_username', $('[name=username]').val().replace(/[^a-zA-Z0-9_-]/g, ''));
     window.location.href='/home';
     return false;
   });
@@ -31,6 +31,9 @@ $(function() {
     var user = '';
     if($hoots.data('username')) user = '/' + $hoots.data('username');
     $.get('/api/timeline' + user, function(data) {
+      $('.loader').remove();
+      $('.empty').show();
+
       $.each(data, function(i, hoot) {
         $('.hoots').append(addHoot(hoot));
       });
@@ -44,8 +47,7 @@ $(function() {
 });
 
 function addHoot(hoot) {
-  $('.loader').remove();
-
+  $('.empty').remove();
   var $post = $('<div>', {
     'class': 'post',
   });
@@ -58,8 +60,16 @@ function addHoot(hoot) {
     'class': 'body',
   });
 
-  $body.append($('<a>', {href: '/@' + hoot.username, 'class': 'username', html: '<span>@</span>' + hoot.username}));
-  $body.append($('<p>', {text: hoot.post}));
+  var $byline = $('<div>', { class: 'byline' });
+
+  $byline.append($('<a>', {href: '/@' + hoot.username, 'class': 'username', html: '<span>@</span>' + hoot.username}));
+  if(hoot.replyto) {
+    $byline.append($('<a>', {href: '/hoot/' + hoot.replyto._id, 'class': 'replying', html: '<i class="fa fa-reply"></i> replying to <span>@</span>' + hoot.replyto.username}));
+  }
+
+  $body.append($byline);
+
+  $body.append($('<div>', {html: markdown(hoot.post)}));
   var $actions = $('<div>', {'class': 'actions'});
   $body.append($actions);
 
@@ -96,4 +106,19 @@ function addHoot(hoot) {
 
   $post.append($body);
   return $post;
+};
+
+function markdown(text) {
+  var bold = /\*\*(\S(.*?\S)?)\*\*/gm;
+  var italic = /\*(\S(.*?\S)?)\*/gm;
+  var link = /(https?:\/\/[^\s]+)/gm;
+  var username = /(@[a-zA-Z0-9-_]+)/gm;
+  text = text.replace(/</g, '&lt;');
+  text = text.replace(/>/g, '&gt;');
+  text = "<p>" + (text.split(/\n+/).join('</p><p>')) + "</p>";
+  text = text.replace(bold, '<strong>$1</strong>');            
+  text = text.replace(italic, '<em>$1</em>');            
+  text = text.replace(link, '<a href="$1">$1</a>');            
+  text = text.replace(username, '<a href="/@$1">$1</a>');            
+  return text;
 };

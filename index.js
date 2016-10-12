@@ -21,18 +21,20 @@ app.set('views', './public/views')
 app.post('/api/hoot', function (req, res) {
   var tweet = new Hoot({
     'post': req.body.post,
-    'replyto': req.body.replyto,
+    'replyto': req.body.replyto || undefined,
     'username': 'gkoberger',
   });
 
   tweet.save(function(err, _tweet) {
-    res.json(_tweet);
+    _tweet.populate('replyto', function(err, _tweet) {
+      res.json(_tweet);
+    });
   });
 
 });
 
 app.get('/api/timeline', function (req, res) {
-  Hoot.find({}, function(err, hoots) {
+  Hoot.find({}).populate('replyto').exec(function(err, hoots) {
     res.json(hoots);
   })
 });

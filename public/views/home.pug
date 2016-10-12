@@ -11,4 +11,9 @@ block content
       .left 140
   .content
     .hoots(data-username=username)
-        .loader
+      .loader
+      .empty
+        .fa.fa-comments-o
+        | We couldn't find any posts
+        if username
+          | &nbsp;by #[strong @#{username}]
