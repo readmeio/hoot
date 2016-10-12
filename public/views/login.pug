@@ -1,0 +1,9 @@
+extends template
+
+block content
+  form#login(method="POST" action="/login")
+    input(type="text" name="username")
+    div
+      input(type="text" value="No password" disabled)
+    div
+      button Log In
