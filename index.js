@@ -21,11 +21,17 @@ app.use(cookieParser())
 app.use(express.static('public'));
 app.set('views', './public/views') 
 
+app.use(function(req, res, next) {
+  req.user = req.cookies.whooter_username;
+  res.locals.user = req.user;
+  next();
+});
+
 app.post('/api/hoot', function (req, res) {
   var tweet = new Hoot({
     'post': req.body.post,
     'replyto': req.body.replyto || undefined,
-    'username': 'gkoberger',
+    'username': req.user,
   });
 
   tweet.save(function(err, _tweet) {
@@ -56,9 +62,9 @@ app.get('/api/hoot/:id', function (req, res) {
 
 app.post('/api/hoot/:id/favorite', function (req, res) {
   Hoot.findOne({_id: req.params.id}, function(err, hoot) {
-    remove(hoot.favorites, 'gkoberger');
+    remove(hoot.favorites, req.user);
     if(req.body.favorited === 'true') {
-      hoot.favorites.push('gkoberger');
+      hoot.favorites.push(req.user);
     }
     hoot.save(function(err, _hoot) {
       res.json(_hoot);
@@ -77,14 +83,16 @@ app.post('/api/hoot/:id/favorite', function (req, res) {
 
 app.set('view engine', 'pug');
 app.get('/', (req, res) => res.redirect('/home'));
+app.get('/logout', function (req, res, next) {
+  delete res.clearCookie('whooter_username');
+  res.redirect('/');
+});
 app.get('/:page', function (req, res, next) {
   var page = req.params.page;
 
   if(['login', 'home'].indexOf(page) < 0) return next();
   
-  res.render(page, {
-    isLoggedIn: req.cookies.whooter_username,
-  });
+  res.render(page, {});
 });
 
 app.get('/hoot/:id', function (req, res, next) {

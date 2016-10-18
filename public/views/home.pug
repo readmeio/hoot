@@ -3,7 +3,7 @@ extends template
 block content
   if !username && !hoot
     form#post
-      if isLoggedIn
+      if user
         textarea(name="post" rows="4" placeholder="What's happening?")
         input(type="hidden" name="replyto")
         button(type="submit" disabled)
