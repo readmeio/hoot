@@ -9,6 +9,8 @@ $(function() {
     return false;
   });
 
+  $('#post textarea').focus();
+
   $('#post textarea').keyup(function() {
     var amt = 140 - $('#post textarea').val().length;
     $('#post .left').text(amt);
