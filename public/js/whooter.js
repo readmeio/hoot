@@ -67,7 +67,7 @@ function addHoot(hoot) {
   });
 
   var $avatar = $('<div>', {'class': 'avatar'});
-  $avatar.append($('<img>', {'src': 'https://api.adorable.io/avatar/70/'+hoot.username+'.png'}));
+  $avatar.append($('<img>', {'src': '/avatar/'+hoot.username+'.svg'}));
   $post.append($avatar);
 
   var $body = $('<div>', {

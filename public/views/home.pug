@@ -4,6 +4,7 @@ block content
   if !username && !hoot
     form#post
       if user
+        img.avatar(src="/avatar/" + user + ".svg")
         textarea(name="post" rows="4" placeholder="What's happening?")
         input(type="hidden" name="replyto")
         button(type="submit" disabled)
@@ -16,7 +17,7 @@ block content
           p Log in or sign up if you want to post here!
   if username
     #user
-      img.avatar(src="https://api.adorable.io/avatar/70/" + username + ".png")
+      img.avatar(src="/avatar/" + username + ".svg")
       h2 @#{username}
   .content
     .hoots(data-username=username data-hoot=hoot)

@@ -27,16 +27,19 @@ head
         width: 760px;
         margin: auto;
         padding: 30px 0;
+        position: relative;
     }
     h1 svg {
         width: 70px;
         fill: #fff;
     }
     nav {
-      float: right;
       color: #fff;
       font-size: 15px;
       font-weight: normal;
+      position: absolute;
+      top: 30px;
+      right: 0;
     }
     nav a {
       color: #fff;
@@ -61,6 +64,14 @@ head
         border-radius: 4px 4px 0 0;
         border-bottom: 1px solid #eee;
         overflow: hidden;
+        position: relative;
+    }
+    #post .avatar {
+      position: absolute;
+      width: 70px;
+      left: 50px;
+      top: 48px;
+      height: 70px;
     }
     #user {
       text-align: center;
@@ -76,6 +87,7 @@ head
         padding: 20px;
         font-size: 15px;
         border-radius: 3px;
+        padding-left: 110px;
     }
     #post textarea:active,
     #post textarea:focus {
