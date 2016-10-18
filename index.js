@@ -8,7 +8,7 @@ require('./api/tweet.model.js');
 
 var Hoot = mongoose.model('Hoot');
 
-mongoose.connect('mongodb://localhost/whooter');
+mongoose.connect('mongodb://hootr:hootr123@aws-us-east-1-portal.15.dblayer.com:15594/hootr?ssl=true'); //mongodb://localhost/whooter');
 
 var app = express();
 
@@ -147,6 +147,7 @@ app.get('/avatar/:avatar.svg', function (req, res, next) {
   res.send(avatar);
 });
 
-app.listen(4007, function () {
-  console.log('Whooter app listening on port 4007!');
+var port = process.env.PORT || 4007;
+app.listen(port, function () {
+  console.log('Whooter app listening on port ' + port + '!');
 });
