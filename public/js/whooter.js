@@ -105,7 +105,7 @@ function addHoot(hoot) {
 
   $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
   
-  var $favorite = $('<a>', {
+  var $favorite = $(username ? '<a>' : '<span>', {
     href: '',
     'class': 'favorite',
     html: 'favorite (<span>' + hoot.favorites.length + '</span>)',
@@ -116,25 +116,28 @@ function addHoot(hoot) {
 
   $actions.append($favorite);
 
-  $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
+  if(username) {
+    $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
 
-  var $reply = $('<a>', {
-    href: '/home?replyto=' + hoot._id + '&user=' + hoot.username,
-    'class': 'reply',
-    html: '<i class="fa fa-reply"></i> reply',
-  });
-  $actions.append($reply);
-
-  $favorite.toggleClass('favorited', hoot.favorites.indexOf(username) >= 0);
-  $favorite.click(function() {
-    $.post('/api/hoot/'+hoot._id+'/favorite', {
-      favorited: !$favorite.hasClass('favorited'),
-    }, function(hoot) {
-      $favorite.find('span').text(hoot.favorites.length);
-      $favorite.toggleClass('favorited', hoot.favorites.indexOf(username) >= 0);
+    $favorite.toggleClass('favorited', hoot.favorites.indexOf(username) >= 0);
+    $favorite.click(function() {
+      $.post('/api/hoot/'+hoot._id+'/favorite', {
+        favorited: !$favorite.hasClass('favorited'),
+      }, function(hoot) {
+        $favorite.find('span').text(hoot.favorites.length);
+        $favorite.toggleClass('favorited', hoot.favorites.indexOf(username) >= 0);
+      });
+      return false;
     });
-    return false;
-  });
+
+    var $reply = $('<a>', {
+      href: '/home?replyto=' + hoot._id + '&user=' + hoot.username,
+      'class': 'reply',
+      html: '<i class="fa fa-reply"></i> reply',
+    });
+    $actions.append($reply);
+
+  }
 
   $post.append($body);
   return $post;
