@@ -44,13 +44,13 @@ app.post('/api/hoot', function (req, res) {
 });
 
 app.get('/api/timeline', function (req, res) {
-  Hoot.find({}).populate('replyto').exec(function(err, hoots) {
+  Hoot.find({}).sort('-createdAt').populate('replyto').exec(function(err, hoots) {
     res.json(hoots);
   })
 });
 
 app.get('/api/timeline/:username', function (req, res) {
-  Hoot.find({username: req.params.username}, function(err, hoots) {
+  Hoot.find({username: req.params.username}).sort('-createdAt').populate('replyto').exec(function(err, hoots) {
     res.json(hoots);
   })
 });
