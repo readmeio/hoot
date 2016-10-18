@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
 
 require('./api/tweet.model.js');
 
@@ -13,6 +14,8 @@ var app = express();
 // Receive JSON
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+app.use(cookieParser())
 
 // Serve everything in /public
 app.use(express.static('public'));
@@ -79,7 +82,9 @@ app.get('/:page', function (req, res, next) {
 
   if(['login', 'home'].indexOf(page) < 0) return next();
   
-  res.render(page);
+  res.render(page, {
+    isLoggedIn: req.cookies.whooter_username,
+  });
 });
 
 app.get('/hoot/:id', function (req, res, next) {
