@@ -69,7 +69,7 @@ function addHoot(hoot) {
   });
 
   var $avatar = $('<div>', {'class': 'avatar'});
-  $avatar.append($('<img>', {'src': '/avatar/'+hoot.username+'.svg'}));
+  $avatar.append($('<img>', {'src': 'https://avatars.hootr.co/'+hoot.username+'.svg'}));
   $post.append($avatar);
 
   var $body = $('<div>', {
