@@ -84,8 +84,9 @@ function addHoot(hoot) {
   }
 
   $body.append($byline);
-
-  $body.append($('<div>', {html: markdown(hoot.post)}));
+  var $postBody = $('<div>', {html: markdown(hoot.post)});
+  $postBody.linkify();
+  $body.append($postBody);
   var $actions = $('<div>', {'class': 'actions'});
   $body.append($actions);
 
@@ -146,14 +147,12 @@ function addHoot(hoot) {
 function markdown(text) {
   var bold = /\*\*(\S(.*?\S)?)\*\*/gm;
   var italic = /\*(\S(.*?\S)?)\*/gm;
-  var link = /(https?:\/\/[^\s]+)/gm;
   var username = /(@[a-zA-Z0-9-_]+)/gm;
   text = text.replace(/</g, '&lt;');
   text = text.replace(/>/g, '&gt;');
   text = "<p>" + (text.split(/\n+/).join('</p><p>')) + "</p>";
   text = text.replace(bold, '<strong>$1</strong>');            
   text = text.replace(italic, '<em>$1</em>');            
-  text = text.replace(link, '<a href="$1">$1</a>');            
   text = text.replace(username, '<a href="/$1">$1</a>');            
   return text;
 };
