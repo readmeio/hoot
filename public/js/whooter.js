@@ -9,6 +9,30 @@ $(function() {
     return false;
   });
 
+  $('#login .username').bind('keypress', function (event) {
+      var regex = new RegExp("^[a-zA-Z0-9]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if (!regex.test(key) || $(this).val().length > 16) {
+         event.preventDefault();
+         return false;
+      }
+  });
+  $('#login .username').on('keyup', function (event) {
+    var text = $(this).val() || 'abc';
+    var imgpath = 'https://avatars.hootr.co/'+text+'.svg';
+
+    var img = new Image();
+    img.onload = function() {
+      $('.owl').css('background-image', 'url('+imgpath+')');
+    };
+    img.src = imgpath;
+
+  });
+
+  if($('#login').length) {
+    $('#login .username').focus();
+  }
+
   $('#post textarea').focus();
 
   $('#post textarea').keyup(function() {

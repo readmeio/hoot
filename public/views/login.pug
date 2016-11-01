@@ -2,8 +2,11 @@ extends template
 
 block content
   form#login(method="POST" action="/login")
-    input(type="text" name="username")
+    .callout
+      .owl(style="background-image:url(https://avatars.hootr.co/abc.svg)")
+      | To make things simple, you can use any username without a password!
+    input.username(type="text" name="username" placeholder="username")
     div
-      input(type="text" value="No password" disabled)
+      input(type="text" value="No password needed" disabled)
     div
-      button Log In
+      button.btn.btn-primary(type="submit") Log In

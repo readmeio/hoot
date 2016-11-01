@@ -27,6 +27,12 @@ app.use(function(req, res, next) {
   next();
 });
 
+/*
+ * @api [post] /api/hoot
+ * parameters:
+ *   -testsaksdfj
+ */
+
 app.post('/api/hoot', function (req, res) {
   var tweet = new Hoot({
     'post': req.body.post,
