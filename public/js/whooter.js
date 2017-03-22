@@ -66,13 +66,11 @@ $(function() {
     if($hoots.data('username')) url = '/api/timeline/' + $hoots.data('username');
     if($hoots.data('hoot')) url = '/api/hoot/' + $hoots.data('hoot');
 
-    $.get(url, function(data) {
+    $.get(url, function(hoot) {
       $('.loader').remove();
       $('.empty').show();
 
-      $.each(data, function(i, hoot) {
-        $('.hoots').append(addHoot(hoot));
-      });
+      $('.hoots').append(addHoot(hoot));
     });
 
     if(urlParams.get('replyto')) {
@@ -129,7 +127,7 @@ function addHoot(hoot) {
 
 
   $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
-  
+
   var $favorite = $(username ? '<a>' : '<span>', {
     href: '',
     'class': 'favorite',
@@ -175,8 +173,8 @@ function markdown(text) {
   text = text.replace(/</g, '&lt;');
   text = text.replace(/>/g, '&gt;');
   text = "<p>" + (text.split(/\n+/).join('</p><p>')) + "</p>";
-  text = text.replace(bold, '<strong>$1</strong>');            
-  text = text.replace(italic, '<em>$1</em>');            
-  text = text.replace(username, '<a href="/$1">$1</a>');            
+  text = text.replace(bold, '<strong>$1</strong>');
+  text = text.replace(italic, '<em>$1</em>');
+  text = text.replace(username, '<a href="/$1">$1</a>');
   return text;
 };

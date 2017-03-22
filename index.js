@@ -19,7 +19,7 @@ app.use(cookieParser())
 
 // Serve everything in /public
 app.use(express.static('public'));
-app.set('views', './public/views') 
+app.set('views', './public/views')
 
 app.use(function(req, res, next) {
   req.user = req.cookies.whooter_username;
@@ -28,12 +28,19 @@ app.use(function(req, res, next) {
 });
 
 /*
- * @api [post] /api/hoot
+ * @api [post] /hoot
+ * description: Post a new hoot to the site
  * parameters:
- *   -testsaksdfj
+ *   - in: body
+ *     name: body
+ *     description: The hoot you want to post
+ *     required: true
+ *     schema:
+ *       $ref: '#/definitions/Hoot'
  */
 
 app.post('/api/hoot', function (req, res) {
+  if (!req.body.post) res.status(500).send("You need to include a status code");
   var tweet = new Hoot({
     'post': req.body.post,
     'replyto': req.body.replyto || undefined,
@@ -41,6 +48,14 @@ app.post('/api/hoot', function (req, res) {
   });
 
   tweet.save(function(err, _tweet) {
+    if (err) {
+      var errors = [];
+      Object.keys(err.errors).forEach(function(key) {
+        errors.push(err.errors[key].message);
+      });
+      return res.status(500).send(errors[0]);
+    }
+
     _tweet.populate('replyto', function(err, _tweet) {
       res.json(_tweet);
     });
@@ -48,11 +63,37 @@ app.post('/api/hoot', function (req, res) {
 
 });
 
+/*
+ * @api [get] /timeline
+ * description: Get a list of all tweets in reverse chronological order
+ * responses:
+ *   '200':
+ *     description: successful operation
+ *     schema:
+ *       type: array
+ *       items:
+ *         $ref: '#/definitions/Hoot'
+ */
+
 app.get('/api/timeline', function (req, res) {
   Hoot.find({}).sort('-createdAt').populate('replyto').exec(function(err, hoots) {
     res.json(hoots);
   })
 });
+
+/*
+ * @api [get] /timeline/{username}
+ * description: Get a list of all tweets from a user
+ * parameters:
+ *   - (path) username* {string} The username you want to see hoots for
+ * responses:
+ *   '200':
+ *     description: successful operation
+ *     schema:
+ *       type: array
+ *       items:
+ *         $ref: '#/definitions/Hoot'
+ */
 
 app.get('/api/timeline/:username', function (req, res) {
   Hoot.find({username: req.params.username}).sort('-createdAt').populate('replyto').exec(function(err, hoots) {
@@ -60,16 +101,50 @@ app.get('/api/timeline/:username', function (req, res) {
   })
 });
 
+/*
+ * @api [get] /hoot/{id}
+ * description: Get a specific hoot
+ * parameters:
+ *   - (path) id* {string} The id of the hoot you want
+ * responses:
+ *   '200':
+ *     description: successful operation
+ *     schema:
+ *       $ref: '#/definitions/Hoot'
+ */
+
 app.get('/api/hoot/:id', function (req, res) {
-  Hoot.find({_id: req.params.id}, function(err, hoots) {
-    res.json(hoots);
+  Hoot.findOne({_id: req.params.id}, function(err, hoot) {
+    res.json(hoot);
   })
 });
+
+/*
+ * @api [post] /hoot/{id}/favorite
+ * description: Favorite a hoot
+ * parameters:
+ *   - (path) id* {string} The id of the hoot you want
+ *   - in: body
+ *     name: body
+ *     required: true
+ *     schema:
+ *       type: object
+ *       required: ['favorited']
+ *       properties:
+ *         favorited:
+ *           type: boolean
+ *           description: Should we add or remove a favorite?
+ * responses:
+ *   '200':
+ *     description: successful operation
+ *     schema:
+ *       $ref: '#/definitions/Hoot'
+ */
 
 app.post('/api/hoot/:id/favorite', function (req, res) {
   Hoot.findOne({_id: req.params.id}, function(err, hoot) {
     remove(hoot.favorites, req.user);
-    if(req.body.favorited === 'true') {
+    if(req.body.favorited === true || req.body.favorited === 'true') {
       hoot.favorites.push(req.user);
     }
     hoot.save(function(err, _hoot) {
@@ -97,7 +172,7 @@ app.get('/:page', function (req, res, next) {
   var page = req.params.page;
 
   if(['login', 'home'].indexOf(page) < 0) return next();
-  
+
   res.render(page, {});
 });
 
