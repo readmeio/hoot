@@ -88,13 +88,12 @@ app.post('/api/hoot', function (req, res) {
  */
 
 app.post('/api/hoot/:category', function (req, res) {
-console.log(req.body);
   if (!req.body.post) return res.status(500).json({"error": "You need to include a post"});
   var tweet = new Hoot({
     'post': req.body.post,
     'category': req.params.category,
     'username': req.user,
-    'replyto': req.query.replyto || undefined,
+    //'replyto': req.query.replyto || undefined,
   });
 
   tweet.save(function(err, _tweet) {
