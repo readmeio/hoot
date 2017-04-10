@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
+var atob = require('atob');
 
 require('./api/tweet.model.js');
 
@@ -22,7 +23,16 @@ app.use(express.static('public'));
 app.set('views', './public/views')
 
 app.use(function(req, res, next) {
-  req.user = req.cookies.whooter_username;
+  console.log();
+  if(req.headers.authorization) {
+    try {
+      var b64 = req.headers.authorization.split(' ')[1];
+      var user = atob(b64).split(':');
+      req.user = user[0];
+    } catch(e) { }
+  } else {
+    req.user = req.cookies.whooter_username;
+  }
   res.locals.user = req.user;
   next();
 });
@@ -40,11 +50,49 @@ app.use(function(req, res, next) {
  */
 
 app.post('/api/hoot', function (req, res) {
-  if (!req.body.post) res.status(500).send("You need to include a status code");
+  if (!req.body.post) return res.status(500).send("You need to include a body");
   var tweet = new Hoot({
     'post': req.body.post,
     'replyto': req.body.replyto || undefined,
     'username': req.user,
+  });
+
+  tweet.save(function(err, _tweet) {
+    if (err) {
+      var errors = [];
+      Object.keys(err.errors).forEach(function(key) {
+        errors.push(err.errors[key].message);
+      });
+      return res.status(500).send(errors[0]);
+    }
+
+    _tweet.populate('replyto', function(err, _tweet) {
+      res.json(_tweet);
+    });
+  });
+
+});
+
+/*
+ * @api [post] /hoot/:category
+ * description: Post a hoot to a category
+ * parameters:
+ *   - in: body
+ *     name: body
+ *     description: The hoot you want to post
+ *     required: true
+ *     schema:
+ *       $ref: '#/definitions/Hoot'
+ */
+
+app.post('/api/hoot/:category', function (req, res) {
+console.log(req.body);
+  if (!req.body.post) return res.status(500).json({"error": "You need to include a post"});
+  var tweet = new Hoot({
+    'post': req.body.post,
+    'category': req.params.category,
+    'username': req.user,
+    'replyto': req.query.replyto || undefined,
   });
 
   tweet.save(function(err, _tweet) {
