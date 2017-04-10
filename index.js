@@ -23,7 +23,12 @@ app.use(express.static('public'));
 app.set('views', './public/views')
 
 app.use(function(req, res, next) {
-  console.log();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  next();
+});
+
+app.use(function(req, res, next) {
   if(req.headers.authorization) {
     try {
       var b64 = req.headers.authorization.split(' ')[1];
