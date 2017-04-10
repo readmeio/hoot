@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var atob = require('atob');
+var cors = require('cors')
 
 require('./api/tweet.model.js');
 
@@ -16,17 +17,13 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.use(cors())
+
 app.use(cookieParser())
 
 // Serve everything in /public
 app.use(express.static('public'));
 app.set('views', './public/views')
-
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  next();
-});
 
 app.use(function(req, res, next) {
   if(req.headers.authorization) {
