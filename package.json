@@ -10,11 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "atob": "^2.0.3",
+    "bad-words": "^3.0.0",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "express": "^4.14.0",
     "forever": "^0.15.2",
+    "lodash": "^4.17.11",
     "md5": "^2.2.1",
     "mongoose": "^4.6.3",
     "nodemon": "^1.11.0",

@@ -5,6 +5,11 @@ var cookieParser = require('cookie-parser')
 var atob = require('atob');
 var cors = require('cors')
 
+var Filter = require('bad-words'),
+    filter = new Filter({
+      placeHolder: 'X',
+    });
+
 require('./api/tweet.model.js');
 
 var Hoot = mongoose.model('Hoot');
@@ -54,7 +59,7 @@ app.use(function(req, res, next) {
 app.post('/api/hoot', function (req, res) {
   if (!req.body.post) return res.status(500).send("You need to include a body");
   var tweet = new Hoot({
-    'post': req.body.post,
+    'post': filter.clean(req.body.post),
     'replyto': req.body.replyto || undefined,
     'username': req.user,
   });
@@ -125,7 +130,7 @@ app.post('/api/hoot/:category', function (req, res) {
  */
 
 app.get('/api/timeline', function (req, res) {
-  Hoot.find({}).sort('-createdAt').populate('replyto').exec(function(err, hoots) {
+  Hoot.find({}).sort('-createdAt').limit(500).populate('replyto').exec(function(err, hoots) {
     res.json(hoots);
   })
 });
