@@ -54,6 +54,7 @@ $(function() {
     });
 
     $('input, textarea', $('#post')).val("");
+    $('#post .left').text(140);
 
     var url = window.location.href.split('?')[0];
     history.pushState({}, $('title').text(), url);
