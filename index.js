@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var atob = require('atob');
 var cors = require('cors')
+const sign = require('jsonwebtoken').sign;
 
 var Filter = require('bad-words'),
     filter = new Filter({
@@ -44,16 +45,29 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req, res, next) {
+  const user = {
+    name: req.user,
+    apiKey: req.user,
+  };
+
+  var jwt = sign(user, 'i3GNcEQ8OteO5nNUaSEM');
+  req.jwt = res.locals.jwt = `http://developers.hoot.at/v2.0.0?auth_token=${jwt}`;
+  next();
+});
+
 /*
- * @api [post] /hoot
+ * @oas [post] /hoot
  * description: Post a new hoot to the site
- * parameters:
- *   - in: body
- *     name: body
- *     description: The hoot you want to post
- *     required: true
- *     schema:
- *       $ref: '#/definitions/Hoot'
+ * requestBody:
+ *   description: The hoot you want to post
+ *   required: true
+ *   content:
+ *     application/json:
+ *       schema:
+ *         $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 app.post('/api/hoot', function (req, res) {
@@ -81,15 +95,17 @@ app.post('/api/hoot', function (req, res) {
 });
 
 /*
- * @api [post] /hoot/:category
+ * @oas [post] /hoot/:category
  * description: Post a hoot to a category
- * parameters:
- *   - in: body
- *     name: body
- *     description: The hoot you want to post
- *     required: true
- *     schema:
- *       $ref: '#/definitions/Hoot'
+ * requestBody:
+ *   description: The hoot you want to post
+ *   required: true
+ *   content:
+ *     application/json:
+ *       schema:
+ *         $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 app.post('/api/hoot/:category', function (req, res) {
@@ -118,15 +134,17 @@ app.post('/api/hoot/:category', function (req, res) {
 });
 
 /*
- * @api [get] /timeline
+ * @oas [get] /timeline
  * description: Get a list of all tweets in reverse chronological order
  * responses:
  *   '200':
  *     description: successful operation
- *     schema:
- *       type: array
- *       items:
- *         $ref: '#/definitions/Hoot'
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 app.get('/api/timeline', function (req, res) {
@@ -136,17 +154,19 @@ app.get('/api/timeline', function (req, res) {
 });
 
 /*
- * @api [get] /timeline/{username}
+ * @oas [get] /timeline/{username}
  * description: Get a list of all tweets from a user
  * parameters:
  *   - (path) username* {string} The username you want to see hoots for
  * responses:
  *   '200':
  *     description: successful operation
- *     schema:
- *       type: array
- *       items:
- *         $ref: '#/definitions/Hoot'
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 app.get('/api/timeline/:username', function (req, res) {
@@ -156,15 +176,19 @@ app.get('/api/timeline/:username', function (req, res) {
 });
 
 /*
- * @api [get] /hoot/{id}
+ * @oas [get] /hoot/{id}
  * description: Get a specific hoot
  * parameters:
  *   - (path) id* {string} The id of the hoot you want
  * responses:
  *   '200':
  *     description: successful operation
- *     schema:
- *       $ref: '#/definitions/Hoot'
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 app.get('/api/hoot/:id', function (req, res) {
@@ -174,25 +198,26 @@ app.get('/api/hoot/:id', function (req, res) {
 });
 
 /*
- * @api [post] /hoot/{id}/favorite
+ * @oas [post] /hoot/{id}/favorite
  * description: Favorite a hoot
+ * requestBody:
+ *   description: The hoot you want to post
+ *   required: true
+ *   content:
+ *     application/json:
+ *       schema:
+ *         $ref: '#/components/schemas/Hoot'
  * parameters:
  *   - (path) id* {string} The id of the hoot you want
- *   - in: body
- *     name: body
- *     required: true
- *     schema:
- *       type: object
- *       required: ['favorited']
- *       properties:
- *         favorited:
- *           type: boolean
- *           description: Should we add or remove a favorite?
  * responses:
  *   '200':
  *     description: successful operation
- *     schema:
- *       $ref: '#/definitions/Hoot'
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 app.post('/api/hoot/:id/favorite', function (req, res) {
