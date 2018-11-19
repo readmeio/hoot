@@ -8,6 +8,6 @@ const schema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-schema.path('post').validate(post => post.length <= 140, 'Post must be under 140 characters');
+schema.path('post').validate(post => post.length <= 280, 'Post must be under 140 characters');
 
 module.exports = mongoose.model('Hoot', schema);
