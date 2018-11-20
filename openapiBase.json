@@ -1,8 +1,7 @@
 {
   "openapi": "3.0.0",
-  "x-api-id": "hootr",
   "info": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "title": "Hootr",
     "license": {
       "name": "ISC"
@@ -19,7 +18,7 @@
     "securitySchemes": {
       "basicAuth": {
         "type": "http",
-       "scheme": "basic"
+        "scheme": "basic"
       }
     },
     "schemas": {

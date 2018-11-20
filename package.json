@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint -f unix . --ext js && prettier --list-different \"./**/**.js\"",
-    "start": "./node_modules/nodemon/bin/nodemon.js index.js"
+    "test": "eslint -f unix . --ext js && prettier --list-different \"./**/**.js\"",
+    "posttest": "swagger-inline './*.js' --base ./openapiBase.json --out openapi.json && npm run upload-openapi",
+    "start": "nodemon index.js",
+    "upload-openapi": "($(cat .env | xargs -n1 echo export) && rdme swagger --key $API_KEY --id 5bf360b0fef3f5005c167b13 openapi.json)"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +33,8 @@
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "rdme": "^2.2.2",
+    "swagger-inline": "^1.0.0"
   }
 }
