@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const atob = require('atob');
 const cors = require('cors');
-const sign = require('jsonwebtoken').sign;
+const { sign } = require('jsonwebtoken');
+
 const MongoMemoryServer = require('mongodb-memory-server').default;
 
 const mongoServer = new MongoMemoryServer();
@@ -41,7 +42,7 @@ app.use((req, res, next) => {
       const b64 = req.headers.authorization.split(' ')[1];
       const user = atob(b64).split(':');
       req.user = user[0];
-    } catch (e) {}
+    } catch (e) {} // eslint-disable-line no-empty
   } else {
     req.user = req.cookies.username;
   }
@@ -231,7 +232,10 @@ app.get('/api/hoot/:id', (req, res) => {
 
 app.post('/api/hoot/:id/favorite', (req, res) => {
   Hoot.findOne({ _id: req.params.id }, (err, hoot) => {
-    remove(hoot.favorites, req.user);
+    hoot.favorites = hoot.favorites.filter(favorite => {
+      return favorite !== req.user;
+    })
+
     if (req.body.favorited === true || req.body.favorited === 'true') {
       hoot.favorites.push(req.user);
     }
@@ -239,14 +243,6 @@ app.post('/api/hoot/:id/favorite', (req, res) => {
       res.json(_hoot);
     });
   });
-
-  function remove(arr, item) {
-    for (let i = arr.length; i--; ) {
-      if (arr[i] === item) {
-        arr.splice(i, 1);
-      }
-    }
-  }
 });
 
 app.set('view engine', 'pug');
@@ -277,5 +273,5 @@ app.get('/@:user', (req, res, next) => {
 
 const port = process.env.PORT || 4007;
 app.listen(port, () => {
-  console.log(`Whooter app listening on port ${port}!`);
+  console.log(`hoot.at app listening on port ${port}!`);
 });

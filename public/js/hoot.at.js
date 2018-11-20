@@ -1,3 +1,6 @@
+/* eslint-env browser */
+/* eslint no-use-before-define: ["error", { "functions": false }] */
+/* global $ */
 const username = $.cookie('username');
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -14,20 +17,28 @@ $(() => {
     return false;
   });
 
-  $('#login .username').bind('keypress', function(event) {
+  $('#login .username').bind('keypress', function keypress(event) {
     const regex = new RegExp('^[a-zA-Z0-9]+$');
-    const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key) || $(this).val().length > 16) {
+    const key = !event.charCode ? event.which : event.charCode;
+
+    // Allow backspace and enter
+    if (key === 8 || key === 13) return true;
+
+    const char = String.fromCharCode(key);
+    if (!regex.test(char) || $(this).val().length > 16) {
       event.preventDefault();
       return false;
     }
+
+    return true;
   });
-  $('#login .username').on('keyup', function(event) {
+
+  $('#login .username').on('keyup', function keyup() {
     const text = $(this).val() || 'abc';
     const imgpath = `https://avatars.hootr.co/${text}.svg`;
 
     const img = new Image();
-    img.onload = function() {
+    img.onload = () => {
       $('.owl').css('background-image', `url(${imgpath})`);
     };
     img.src = imgpath;
@@ -41,10 +52,10 @@ $(() => {
 
   $('#post textarea')
     .keyup(() => {
-      const amt = 140 - $('#post textarea').val().length;
+      const amt = 280 - $('#post textarea').val().length;
       $('#post .left').text(amt);
       $('#post .left').toggleClass('over', amt < 0);
-      $('#post button').attr('disabled', amt < 0 || amt >= 140);
+      $('#post button').attr('disabled', amt < 0 || amt >= 280);
     })
     .trigger('keyup');
 
@@ -64,10 +75,10 @@ $(() => {
     );
 
     $('input, textarea', $('#post')).val('');
-    $('#post .left').text(140);
+    $('#post .left').text(280);
 
     const url = window.location.href.split('?')[0];
-    history.pushState({}, $('title').text(), url);
+    window.history.pushState({}, $('title').text(), url);
 
     return false;
   });
@@ -141,7 +152,7 @@ function addHoot(hoot) {
   const $actions = $('<div>', { class: 'actions' });
   $body.append($actions);
 
-  const $timestamp_a = $('<a>', {
+  const $timestampAnchor = $('<a>', {
     href: `/hoot/${hoot._id}`,
   });
 
@@ -151,8 +162,8 @@ function addHoot(hoot) {
     text: $.timeago(hoot.createdAt),
   });
 
-  $timestamp_a.append($timestamp);
-  $actions.append($timestamp_a);
+  $timestampAnchor.append($timestamp);
+  $actions.append($timestampAnchor);
 
   $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
 
@@ -177,9 +188,9 @@ function addHoot(hoot) {
         {
           favorited: !$favorite.hasClass('favorited'),
         },
-        hoot => {
-          $favorite.find('span').text(hoot.favorites.length);
-          $favorite.toggleClass('favorited', hoot.favorites.indexOf(username) >= 0);
+        updatedHoot => {
+          $favorite.find('span').text(updatedHoot.favorites.length);
+          $favorite.toggleClass('favorited', updatedHoot.favorites.indexOf(username) >= 0);
         },
       );
       return false;
@@ -200,13 +211,14 @@ function addHoot(hoot) {
 function markdown(text) {
   const bold = /\*\*(\S(.*?\S)?)\*\*/gm;
   const italic = /\*(\S(.*?\S)?)\*/gm;
-  const username = /(@[a-zA-Z0-9-_]+)/gm;
-  text = text || '';
-  text = text.replace(/</g, '&lt;');
-  text = text.replace(/>/g, '&gt;');
-  text = `<p>${text.split(/\n+/).join('</p><p>')}</p>`;
-  text = text.replace(bold, '<strong>$1</strong>');
-  text = text.replace(italic, '<em>$1</em>');
-  text = text.replace(username, '<a href="/$1">$1</a>');
-  return text;
+  const usernameRegex = /(@[a-zA-Z0-9-_]+)/gm;
+
+  let processed = text || '';
+  processed = text.replace(/</g, '&lt;');
+  processed = text.replace(/>/g, '&gt;');
+  processed = `<p>${text.split(/\n+/).join('</p><p>')}</p>`;
+  processed = text.replace(bold, '<strong>$1</strong>');
+  processed = text.replace(italic, '<em>$1</em>');
+  processed = text.replace(usernameRegex, '<a href="/$1">$1</a>');
+  return processed;
 }

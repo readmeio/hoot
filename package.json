@@ -1,5 +1,5 @@
 {
-  "name": "whooter",
+  "name": "hoot.at",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,8 +15,6 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
-    "eslint": "^5.9.0",
-    "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.3.0",
     "express": "^4.14.0",
     "forever": "^0.15.2",
@@ -28,5 +26,10 @@
     "nodemon": "^1.11.0",
     "prettier": "^1.15.2",
     "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

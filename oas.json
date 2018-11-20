@@ -31,7 +31,7 @@
         "properties": {
           "post": {
             "type": "string",
-            "description": "The under-140-character content you want to hoot"
+            "description": "The under-280-character content you want to hoot"
           },
           "replyto": {
             "type": "string",
