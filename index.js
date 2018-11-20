@@ -237,5 +237,5 @@ app.get('/@:user', (req, res) => res.render('home', { username: req.params.user 
 const port = process.env.PORT || 4007;
 app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`hoot.at app listening on port ${port}!`);
+  console.log(`hoot.at app started at http://localhost:${port}`);
 });
