@@ -28,7 +28,8 @@
     "mongoose": "^5.3.12",
     "nodemon": "^1.11.0",
     "prettier": "^1.15.2",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "readmeio": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^5.9.0",

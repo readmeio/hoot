@@ -4,6 +4,10 @@ if (!process.env.JWT_SECRET) {
   throw new Error('Missing `JWT_SECRET` env variable');
 }
 
+if (!process.env.API_KEY) {
+  throw new Error('Missing `API_KEY` env variable');
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -11,6 +15,7 @@ const cookieParser = require('cookie-parser');
 const atob = require('atob');
 const cors = require('cors');
 const { sign } = require('jsonwebtoken');
+const readmeio = require('readmeio');
 
 const MongoMemoryServer = require('mongodb-memory-server').default;
 
@@ -71,6 +76,11 @@ app.use((req, res, next) => {
   res.locals.jwt = `http://developers.hoot.at/v2.0.0?auth_token=${jwt}`;
   next();
 });
+
+app.use('/api/*', readmeio.metrics(process.env.API_KEY, (req) => ({
+  id: req.user,
+  label: req.user,
+})));
 
 /*
  * @oas [post] /hoot
