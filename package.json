@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "md5": "^2.2.1",
-    "mongoose": "^4.6.3",
+    "mongodb-memory-server": "^2.7.2",
+    "mongoose": "^5.3.12",
     "nodemon": "^1.11.0",
     "prettier": "^1.15.2",
     "pug": "^2.0.0-beta6"

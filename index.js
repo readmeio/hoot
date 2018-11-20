@@ -5,6 +5,11 @@ const cookieParser = require('cookie-parser');
 const atob = require('atob');
 const cors = require('cors');
 const sign = require('jsonwebtoken').sign;
+const MongoMemoryServer = require('mongodb-memory-server').default;
+
+const mongoServer = new MongoMemoryServer();
+
+mongoServer.getConnectionString().then(mongoUri => mongoose.connect(mongoUri, { useNewUrlParser: true }));
 
 const Filter = require('bad-words');
 
@@ -15,9 +20,6 @@ const filter = new Filter({
 require('./api/tweet.model.js');
 
 const Hoot = mongoose.model('Hoot');
-
-// mongoose.connect('mongodb://hootr:hootr123@aws-us-east-1-portal.15.dblayer.com:15594/hootr?ssl=true'); //mongodb://localhost/whooter');
-mongoose.connect('mongodb://localhost:27017/hootr');
 
 const app = express();
 
