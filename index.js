@@ -40,8 +40,8 @@ app.use((req, res, next) => {
   if (req.headers.authorization) {
     try {
       const b64 = req.headers.authorization.split(' ')[1];
-      const user = atob(b64).split(':');
-      req.user = user[0];
+      const [user] = atob(b64).split(':');
+      req.user = user;
     } catch (e) {} // eslint-disable-line no-empty
   } else {
     req.user = req.cookies.username;
@@ -56,8 +56,8 @@ app.use((req, res, next) => {
     apiKey: req.user,
   };
 
-  const jwt = sign(user, 'i3GNcEQ8OteO5nNUaSEM');
-  req.jwt = res.locals.jwt = `http://developers.hoot.at/v2.0.0?auth_token=${jwt}`;
+  const jwt = sign(user, process.env.JWT_SECRET);
+  res.locals.jwt = `http://developers.hoot.at/v2.0.0?auth_token=${jwt}`;
   next();
 });
 
@@ -83,7 +83,7 @@ app.post('/api/hoot', (req, res) => {
     username: req.user,
   });
 
-  tweet.save((err, _tweet) => {
+  return tweet.save((err, _tweet) => {
     if (err) {
       const errors = [];
       Object.keys(err.errors).forEach(key => {
@@ -92,46 +92,8 @@ app.post('/api/hoot', (req, res) => {
       return res.status(500).send(errors[0]);
     }
 
-    _tweet.populate('replyto', (err, _tweet) => {
-      res.json(_tweet);
-    });
-  });
-});
-
-/*
- * @oas [post] /hoot/:category
- * description: Post a hoot to a category
- * requestBody:
- *   description: The hoot you want to post
- *   required: true
- *   content:
- *     application/json:
- *       schema:
- *         $ref: '#/components/schemas/Hoot'
- * security:
- *   - basicAuth: []
- */
-
-app.post('/api/hoot/:category', (req, res) => {
-  if (!req.body.post) return res.status(500).json({ error: 'You need to include a post' });
-  const tweet = new Hoot({
-    post: req.body.post,
-    category: req.params.category,
-    username: req.user,
-    // 'replyto': req.query.replyto || undefined,
-  });
-
-  tweet.save((err, _tweet) => {
-    if (err) {
-      const errors = [];
-      Object.keys(err.errors).forEach(key => {
-        errors.push(err.errors[key].message);
-      });
-      return res.status(500).send(errors[0]);
-    }
-
-    _tweet.populate('replyto', (err, _tweet) => {
-      res.json(_tweet);
+    return _tweet.populate('replyto', (_err, __tweet) => {
+      res.json(__tweet);
     });
   });
 });
@@ -232,14 +194,12 @@ app.get('/api/hoot/:id', (req, res) => {
 
 app.post('/api/hoot/:id/favorite', (req, res) => {
   Hoot.findOne({ _id: req.params.id }, (err, hoot) => {
-    hoot.favorites = hoot.favorites.filter(favorite => {
-      return favorite !== req.user;
-    })
+    hoot.favorites = hoot.favorites.filter(favorite => favorite !== req.user);
 
     if (req.body.favorited === true || req.body.favorited === 'true') {
       hoot.favorites.push(req.user);
     }
-    hoot.save((err, _hoot) => {
+    hoot.save((_err, _hoot) => {
       res.json(_hoot);
     });
   });
@@ -247,31 +207,24 @@ app.post('/api/hoot/:id/favorite', (req, res) => {
 
 app.set('view engine', 'pug');
 app.get('/', (req, res) => res.redirect('/home'));
-app.get('/logout', (req, res, next) => {
+app.get('/logout', (req, res) => {
   delete res.clearCookie('username');
   res.redirect('/');
 });
 app.get('/:page', (req, res, next) => {
-  const page = req.params.page;
+  const { page } = req.params;
 
   if (['login', 'home'].indexOf(page) < 0) return next();
 
-  res.render(page, {});
+  return res.render(page, {});
 });
 
-app.get('/hoot/:id', (req, res, next) => {
-  res.render('home', {
-    hoot: req.params.id,
-  });
-});
+app.get('/hoot/:id', (req, res) => res.render('home', { hoot: req.params.id }));
 
-app.get('/@:user', (req, res, next) => {
-  res.render('home', {
-    username: req.params.user,
-  });
-});
+app.get('/@:user', (req, res) => res.render('home', { username: req.params.user }));
 
 const port = process.env.PORT || 4007;
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`hoot.at app listening on port ${port}!`);
 });
