@@ -16,7 +16,12 @@ const MongoMemoryServer = require('mongodb-memory-server').default;
 
 const mongoServer = new MongoMemoryServer();
 
-mongoServer.getConnectionString().then(mongoUri => mongoose.connect(mongoUri, { useNewUrlParser: true }));
+mongoServer.getConnectionString().then(mongoUri =>
+  mongoose.connect(
+    mongoUri,
+    { useNewUrlParser: true },
+  ),
+);
 
 const Filter = require('bad-words');
 
