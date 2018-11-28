@@ -38,6 +38,15 @@ require('./api/tweet.model.js');
 
 const Hoot = mongoose.model('Hoot');
 
+// Create some test hoots on startup so there's always some data
+Hoot.create([{
+  post: 'Hello world!',
+  username: 'owlbert',
+},{
+  post: 'Hoot hoot',
+  username: 'owlbert',
+}]);
+
 const app = express();
 
 // Receive JSON
