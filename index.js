@@ -64,6 +64,9 @@ app.use(cookieParser());
 app.use(express.static('public'));
 app.set('views', './public/views');
 
+// Trust x-forwarded-* headers
+app.set('trust proxy', true);
+
 app.use((req, res, next) => {
   if (req.headers.authorization) {
     try {
