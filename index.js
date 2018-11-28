@@ -80,6 +80,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   const user = {
+    id: req.user,
     name: req.user,
     apiKey: req.user,
   };
