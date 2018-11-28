@@ -39,13 +39,16 @@ require('./api/tweet.model.js');
 const Hoot = mongoose.model('Hoot');
 
 // Create some test hoots on startup so there's always some data
-Hoot.create([{
-  post: 'Hello world!',
-  username: 'owlbert',
-},{
-  post: 'Hoot hoot',
-  username: 'owlbert',
-}]);
+Hoot.create([
+  {
+    post: 'Hello world!',
+    username: 'owlbert',
+  },
+  {
+    post: 'Hoot hoot',
+    username: 'owlbert',
+  },
+]);
 
 const app = express();
 
@@ -86,10 +89,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/*', readmeio.metrics(process.env.API_KEY, (req) => ({
-  id: req.user,
-  label: req.user,
-})));
+app.use(
+  '/api/*',
+  readmeio.metrics(process.env.API_KEY, req => ({
+    id: req.user,
+    label: req.user,
+  })),
+);
 
 /*
  * @oas [post] /hoot
