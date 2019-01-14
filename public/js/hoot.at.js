@@ -35,7 +35,7 @@ $(() => {
 
   $('#login .username').on('keyup', function keyup() {
     const text = $(this).val() || 'abc';
-    const imgpath = `https://avatars.hootr.co/${text}.svg`;
+    const imgpath = `https://avatars.hoot.at/${text}.svg`;
 
     const img = new Image();
     img.onload = () => {
@@ -119,7 +119,7 @@ function addHoot(hoot) {
   });
 
   const $avatar = $('<div>', { class: 'avatar' });
-  $avatar.append($('<img>', { src: `https://avatars.hootr.co/${hoot.username}.svg` }));
+  $avatar.append($('<img>', { src: `https://avatars.hoot.at/${hoot.username}.svg` }));
   $post.append($avatar);
 
   const $body = $('<div>', {
