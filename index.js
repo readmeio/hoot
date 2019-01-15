@@ -16,6 +16,7 @@ const atob = require('atob');
 const cors = require('cors');
 const { sign } = require('jsonwebtoken');
 const readmeio = require('readmeio');
+const utils = require('./lib/utils');
 
 const MongoMemoryServer = require('mongodb-memory-server').default;
 
@@ -41,13 +42,29 @@ const Hoot = mongoose.model('Hoot');
 // Create some test hoots on startup so there's always some data
 Hoot.create([
   {
+    _id: '5c3e39af342143680d31775c',
     post: 'Hello world!',
-    username: 'owlbert',
+    username: 'gkoberger',
+    favorites: ['gkoberger', 'owlivia'],
+    createdAt: utils.minutesAgo(35),
   },
   {
     post: 'Hoot hoot',
     username: 'owlbert',
+    createdAt: utils.minutesAgo(27),
   },
+  {
+    post: 'I\'m a bit of a night owl!',
+    username: 'owlivia',
+    favorites: ['owlbert'],
+    createdAt: utils.minutesAgo(14),
+  },
+  {
+    post: '@gkoberger hello there!',
+    username: 'owlbert',
+    replyto: '5c3e39af342143680d31775c',//hoots[0]._id,
+    createdAt: utils.minutesAgo(0),
+  }
 ]);
 
 const app = express();
