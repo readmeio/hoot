@@ -16,7 +16,6 @@ const atob = require('atob');
 const cors = require('cors');
 const { sign } = require('jsonwebtoken');
 const readmeio = require('readmeio');
-const utils = require('./lib/utils');
 
 const MongoMemoryServer = require('mongodb-memory-server').default;
 
@@ -40,32 +39,7 @@ require('./api/tweet.model.js');
 const Hoot = mongoose.model('Hoot');
 
 // Create some test hoots on startup so there's always some data
-Hoot.create([
-  {
-    _id: '5c3e39af342143680d31775c',
-    post: 'Hello world!',
-    username: 'gkoberger',
-    favorites: ['gkoberger', 'owlivia'],
-    createdAt: utils.minutesAgo(35),
-  },
-  {
-    post: 'Hoot hoot',
-    username: 'owlbert',
-    createdAt: utils.minutesAgo(27),
-  },
-  {
-    post: 'I\'m a bit of a night owl!',
-    username: 'owlivia',
-    favorites: ['owlbert'],
-    createdAt: utils.minutesAgo(14),
-  },
-  {
-    post: '@gkoberger hello there!',
-    username: 'owlbert',
-    replyto: '5c3e39af342143680d31775c',//hoots[0]._id,
-    createdAt: utils.minutesAgo(0),
-  }
-]);
+Hoot.create(require('./lib/fixtures'));
 
 const app = express();
 
@@ -126,7 +100,9 @@ app.use(
 
 /*
  * @oas [post] /hoot
+ * summary: Create a hoot
  * description: Post a new hoot to the site
+ * tags: ['Hoots']
  * requestBody:
  *   description: The hoot you want to post
  *   required: true
@@ -163,7 +139,9 @@ app.post('/api/hoot', (req, res) => {
 
 /*
  * @oas [get] /timeline
- * description: Get a list of all tweets in reverse chronological order
+ * summary: List hoots
+ * description: Get a list of all hoots in reverse chronological order
+ * tags: ['Timeline']
  * responses:
  *   '200':
  *     description: successful operation
@@ -187,7 +165,9 @@ app.get('/api/timeline', (req, res) => {
 
 /*
  * @oas [get] /timeline/{username}
+ * summary: List user's hoots
  * description: Get a list of all tweets from a user
+ * tags: ['Timeline']
  * parameters:
  *   - (path) username* {string} The username you want to see hoots for
  * responses:
@@ -212,6 +192,8 @@ app.get('/api/timeline/:username', (req, res) => {
 
 /*
  * @oas [get] /hoot/{id}
+ * summary: Get a hoot
+ * tags: ['Hoots']
  * description: Get a specific hoot
  * parameters:
  *   - (path) id* {string} The id of the hoot you want
@@ -234,7 +216,9 @@ app.get('/api/hoot/:id', (req, res) => {
 
 /*
  * @oas [post] /hoot/{id}/favorite
- * description: Favorite a hoot
+ * summary: Favorite hoot
+ * tags: ['Hoots']
+ * description: Add a favorite to a hoot
  * requestBody:
  *   description: The hoot you want to post
  *   required: true
