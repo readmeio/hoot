@@ -115,7 +115,7 @@ app.use(
  */
 
 app.post('/api/hoot', (req, res) => {
-  if (!req.body.post) return res.status(500).send('You need to include a body');
+  if (!req.body.post) return res.status(500).send('MissingBody: You need to include a body');
   const tweet = new Hoot({
     post: filter.clean(req.body.post),
     replyto: req.body.replyto || undefined,
