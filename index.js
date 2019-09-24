@@ -77,6 +77,7 @@ app.use((req, res, next) => {
     id: req.user,
     name: req.user,
     apiKey: req.user,
+    basicAuth: { user: req.user, pass: '' },
   };
 
   const jwt = sign(user, process.env.JWT_SECRET);
