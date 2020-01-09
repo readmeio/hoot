@@ -81,7 +81,7 @@ app.use((req, res, next) => {
   };
 
   const jwt = sign(user, process.env.JWT_SECRET);
-  res.locals.jwt = `http://developers.hoot.at/v2.0.0?auth_token=${jwt}`;
+  res.locals.jwt = `http://developers.hoot.at/v2.0.0/reference?auth_token=${jwt}`;
 
   if (req.user) {
     res.set('x-readme-id', req.user);
