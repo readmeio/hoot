@@ -5,20 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint -f unix . --ext js && prettier --list-different \"./**/**.js\"",
-    "posttest": "swagger-inline './*.js' --base ./openapiBase.json --out openapi.json && npm run upload-openapi",
+    "posttest": "npm run upload-openapi",
     "start": "nodemon index.js",
-    "upload-openapi": "($(cat .env | xargs -n1 echo export) && rdme swagger --key $API_KEY --id 5bf360b0fef3f5005c167b13 openapi.json)"
+    "upload-openapi": "bash ./bin/openapi/upload-openapi.sh"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "atob": "^2.0.3",
-    "bad-words": "^3.0.0",
+    "bad-words": "^3.0.3",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "dotenv": "^6.1.0",
-    "eslint-config-prettier": "^3.3.0",
     "express": "^4.14.0",
     "forever": "^0.15.2",
     "jsonwebtoken": "^8.3.0",
@@ -29,12 +28,12 @@
     "nodemon": "^1.18.7",
     "prettier": "^1.15.2",
     "pug": "^2.0.0-beta6",
-    "readmeio": "^1.2.0"
+    "readmeio": "^1.3.0",
+    "tiny-json-http": "^7.1.2"
   },
   "devDependencies": {
-    "eslint": "^5.9.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint": "^6.2.0",
+    "@readme/eslint-config": "^1.13.0",
     "rdme": "^2.2.2",
     "swagger-inline": "^1.0.0"
   }

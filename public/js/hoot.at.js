@@ -11,7 +11,7 @@ $(() => {
       'username',
       $('[name=username]')
         .val()
-        .replace(/[^a-zA-Z0-9_-]/g, ''),
+        .replace(/[^a-zA-Z0-9_-]/g, '')
     );
     window.location.href = '/home';
     return false;
@@ -71,7 +71,7 @@ $(() => {
         $('.hoots').prepend($h);
         $h.hide();
         $h.slideDown();
-      },
+      }
     );
 
     $('input, textarea', $('#post')).val('');
@@ -133,7 +133,7 @@ function addHoot(hoot) {
       href: `/@${hoot.username}`,
       class: 'username',
       html: `<span>@</span>${hoot.username}`,
-    }),
+    })
   );
   if (hoot.replyto) {
     $byline.append(
@@ -141,7 +141,7 @@ function addHoot(hoot) {
         href: `/hoot/${hoot.replyto._id}`,
         class: 'replying',
         html: `<i class="fa fa-reply"></i> replying to <span>@</span>${hoot.replyto.username}`,
-      }),
+      })
     );
   }
 
@@ -183,16 +183,10 @@ function addHoot(hoot) {
 
     $favorite.toggleClass('favorited', hoot.favorites.indexOf(username) >= 0);
     $favorite.click(() => {
-      $.post(
-        `/api/hoot/${hoot._id}/favorite`,
-        {
-          favorited: !$favorite.hasClass('favorited'),
-        },
-        updatedHoot => {
-          $favorite.find('span').text(updatedHoot.favorites.length);
-          $favorite.toggleClass('favorited', updatedHoot.favorites.indexOf(username) >= 0);
-        },
-      );
+      $.post(`/api/hoot/${hoot._id}/favorite`, updatedHoot => {
+        $favorite.find('span').text(updatedHoot.favorites.length);
+        $favorite.toggleClass('favorited', updatedHoot.favorites.indexOf(username) >= 0);
+      });
       return false;
     });
 
@@ -209,7 +203,9 @@ function addHoot(hoot) {
 }
 
 function markdown(text) {
+  // eslint-disable-next-line unicorn/no-unsafe-regex
   const bold = /\*\*(\S(.*?\S)?)\*\*/gm;
+  // eslint-disable-next-line unicorn/no-unsafe-regex
   const italic = /\*(\S(.*?\S)?)\*/gm;
   const usernameRegex = /(@[a-zA-Z0-9-_]+)/gm;
 
