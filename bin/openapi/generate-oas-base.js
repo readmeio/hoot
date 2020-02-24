@@ -1,8 +1,9 @@
 const fs = require('fs');
+const utils = require('../../lib/utils');
 
 const definitionBase = {
   openapi: '3.0.0',
-  'x-api-id': `hoot-${process.env.PROJECT_ID}`,
+  'x-api-id': `hoot-${process.env.PROJECT_ID || 'test'}`,
   info: {
     version: '1.0',
     title: 'Hoot.at',
@@ -13,7 +14,7 @@ const definitionBase = {
   paths: {},
   servers: [
     {
-      url: `https://${process.env.PROJECT_DOMAIN}.glitch.me/api`,
+      url: `${utils.getBaseUrl()}/api`,
     },
   ],
   components: {

@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+const utils = require('./lib/utils');
 const MongoMemoryServer = require('mongodb-memory-server').default;
 
 const mongoServer = new MongoMemoryServer();
@@ -70,8 +71,6 @@ app.get('/hoot/:id', (req, res) => res.render('home', { hoot: req.params.id }));
 
 app.get('/@:user', (req, res) => res.render('home', { username: req.params.user }));
 
-// Listen on specified port
-const port = process.env.PORT || 4007;
-app.listen(port, () => {
-  console.log(`hoot.at app started at https://${process.env.PROJECT_DOMAIN}.glitch.me`);
+app.listen(utils.getPort(), () => {
+  console.log(`hoot.at app started at ${utils.getBaseUrl()}`);
 });
