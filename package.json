@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint -f unix . --ext js && prettier --list-different \"./**/**.js\"",
-    "posttest": "npm run upload-openapi",
+    "posttest": "bash ./bin/openapi/generate-oas-definition.sh && swagger-cli validate openapi.json",
     "start": "nodemon index.js",
     "upload-openapi": "bash ./bin/openapi/upload-openapi.sh"
   },
@@ -40,6 +40,7 @@
     "eslint-plugin-import": "^2.14.0",
     "@readme/eslint-config": "^1.13.0",
     "rdme": "^2.2.2",
+    "swagger-cli": "^3.0.1",
     "swagger-inline": "^1.0.0"
   }
 }
