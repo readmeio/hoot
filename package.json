@@ -10,7 +10,7 @@
     "upload-openapi": "bash ./bin/openapi/upload-openapi.sh"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "atob": "^2.0.3",
     "bad-words": "^3.0.3",
