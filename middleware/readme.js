@@ -17,7 +17,7 @@ module.exports = function(app) {
     try {
       response = await tiny.get({ url, headers });
     } catch (err) {
-      return res.json(401, { error: 'Oops! Looks like the ReadMe API key is invalid.' });
+      return res.status(401).json({ error: 'Oops! Looks like the ReadMe API key is invalid.' });
     }
 
     req.project = response.body;
