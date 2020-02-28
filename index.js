@@ -86,6 +86,7 @@ app.use((req, res, next) => {
   if (req.user) {
     res.set('x-readme-id', req.user);
     res.set('x-readme-label', req.user);
+    res.set('x-readme-email', req.user);
   }
 
   next();
