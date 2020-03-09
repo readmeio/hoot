@@ -21,6 +21,9 @@ module.exports = function(app) {
     res.locals.jwt = `${docsUrl}?auth_token=${jwt}`;
 
     if (req.user) {
+      // If you're connecting to metrics via our Cloudflare worker,
+      // you'll want to set response headers as shown below.
+      // More info: https://docs.readme.com/metrics/docs/sending-logs-to-readme-with-cloudflare
       res.set('x-readme-id', req.user);
       res.set('x-readme-label', req.user);
       res.set('x-readme-email', req.user);
