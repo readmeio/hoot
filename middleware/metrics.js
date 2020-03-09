@@ -6,6 +6,7 @@ module.exports = function(app) {
     readmeio.metrics(process.env.API_KEY, req => ({
       id: req.user,
       label: req.user,
+      email: req.user,
     }))
   );
 };
