@@ -21,14 +21,16 @@ npm run upload
 4. Feel free to poke around in the code — when you're ready, click the **Show** button to interact with your very own Hoot platform!
 
 ## FAQ
-#### My `.env` is populated with a valid API key but I'm still seeing an error. Help!
+#### My `.env` is populated with a valid API key, but I'm still seeing an error when trying to upload my OpenAPI file. Help!
 
-In certain environments, Bash scripts don't automatically read variables from your `.env` file. To fix this, do the following:
-1. Remove all comments from your `.env`. The entire file should be just one line that looks something like:
+In certain environments, Bash scripts don't automatically read variables from your `.env` file. To set those variables, run the following command in your console:
 ```
-API_KEY=<YOUR README API KEY HERE>
+export $(grep -v '^#' .env | xargs)
 ```
-2. Run the following command in your console (instead of `npm run upload`):
+* **Note**: this only loads the `.env` in to the **current** shell, so you'll have to run this every time you open a new console window!
+
+You can verify that your API key was properly set by running the following:
 ```
-($(cat .env | xargs -n1 echo export) && npm run upload)
+echo $API_KEY
 ```
+Once the `$API_KEY` variable has been properly set, you should be able to run `npm run upload` with no issues!
