@@ -36,9 +36,8 @@
     "tiny-json-http": "^7.1.2"
   },
   "devDependencies": {
+    "@readme/eslint-config": "^1.15.0",
     "eslint": "^6.2.0",
-    "eslint-plugin-import": "^2.14.0",
-    "@readme/eslint-config": "^1.13.0",
     "rdme": "^3.7.6",
     "swagger-cli": "^3.0.1",
     "swagger-inline": "^3.0.1"
