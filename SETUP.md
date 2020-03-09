@@ -19,3 +19,16 @@ npm run upload
 ```
 
 4. Feel free to poke around in the code — when you're ready, click the **Show** button to interact with your very own Hoot platform!
+
+## FAQ
+#### My `.env` is populated with a valid API key but I'm still seeing an error. Help!
+
+In certain environments, Bash scripts don't automatically read variables from your `.env` file. To fix this, do the following:
+1. Remove all comments from your `.env`. The entire file should be just one line that looks something like:
+```
+API_KEY=<YOUR README API KEY HERE>
+```
+2. Run the following command in your console (instead of `npm run upload`):
+```
+($(cat .env | xargs -n1 echo export) && npm run upload)
+```
