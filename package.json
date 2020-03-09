@@ -9,7 +9,11 @@
     "start": "nodemon index.js",
     "upload": "bash ./bin/openapi/upload.sh"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/readmeio/hoot.at"
+  },
+  "author": "Readme",
   "license": "ISC",
   "engines": {
     "node": "10.16.0",
