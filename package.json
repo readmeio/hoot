@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint -f unix . --ext js && prettier --list-different \"./**/**.js\"",
-    "posttest": "bash ./bin/openapi/generate-oas-definition.sh && swagger-cli validate openapi.json",
+    "posttest": "bash ./bin/openapi/generate.sh && swagger-cli validate openapi.json",
     "start": "nodemon index.js",
-    "upload-openapi": "bash ./bin/openapi/upload-openapi.sh"
+    "upload": "bash ./bin/openapi/upload.sh"
   },
   "author": "",
   "license": "ISC",

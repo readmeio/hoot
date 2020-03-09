@@ -15,7 +15,7 @@ API_KEY=<Your ReadMe API Key Here>
 3. In the console, run the following command (and answer the subsequent prompts) to generate your OpenAPI definition and upload it to your ReadMe project:
 
 ```
-npm run upload-openapi
+npm run upload
 ```
 
 4. Feel free to poke around in the code — when you're ready, click the **Show** button to interact with your very own Hoot platform!
