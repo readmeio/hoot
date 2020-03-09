@@ -12,16 +12,10 @@ API_KEY=<Your ReadMe API Key Here>
 ```
 * **Note**: make sure there are no spaces around the equal sign or after your API key!
 
-3. In the console, run the following command to generate your OpenAPI definition and upload it to your ReadMe project:
+3. In the console, run the following command (and answer the subsequent prompts) to generate your OpenAPI definition and upload it to your ReadMe project:
 
 ```
 npm run upload-openapi
 ```
 
-4. Once you've uploaded your OpenAPI definition to ReadMe, be sure to save the `_id` that's returned to your `.env` so you can re-sync your specification to ReadMe (instead of creating a new one). Use the following format when adding it to your `.env`:
-
-```
-API_SPEC_ID=<Your API Spec ID Here>
-```
-
-5. Feel free to poke around in the code — when you're ready, click the **Show** button to interact with your very own Hoot platform!
+4. Feel free to poke around in the code — when you're ready, click the **Show** button to interact with your very own Hoot platform!
