@@ -203,16 +203,12 @@ function addHoot(hoot) {
 }
 
 function markdown(text) {
-  const bold = /\*\*(.*?)\*\*/gm;
-  const italic = /\*(.*?)\*/gm;
   const usernameRegex = /(@[a-zA-Z0-9-_]+)/gm;
 
   let processed = text || '';
   processed = processed.replace(/</g, '&lt;');
   processed = processed.replace(/>/g, '&gt;');
   processed = `<p>${processed.split(/\n+/).join('</p><p>')}</p>`;
-  processed = processed.replace(bold, '<strong>$1</strong>');
-  processed = processed.replace(italic, '<em>$1</em>');
   processed = processed.replace(usernameRegex, '<a href="/$1">$1</a>');
   return processed;
 }
