@@ -28,6 +28,12 @@ Hoot.create(require('./lib/fixtures'));
 
 const app = express();
 
+// Get project settings via ReadMe API
+require('./bin/readme.js')(app).catch(err => {
+  console.error(err);
+  process.exit(1);
+});
+
 // Receive JSON
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
