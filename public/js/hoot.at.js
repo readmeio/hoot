@@ -208,11 +208,11 @@ function markdown(text) {
   const usernameRegex = /(@[a-zA-Z0-9-_]+)/gm;
 
   let processed = text || '';
-  processed = text.replace(/</g, '&lt;');
-  processed = text.replace(/>/g, '&gt;');
-  processed = `<p>${text.split(/\n+/).join('</p><p>')}</p>`;
-  processed = text.replace(bold, '<strong>$1</strong>');
-  processed = text.replace(italic, '<em>$1</em>');
-  processed = text.replace(usernameRegex, '<a href="/$1">$1</a>');
+  processed = processed.replace(/</g, '&lt;');
+  processed = processed.replace(/>/g, '&gt;');
+  processed = `<p>${processed.split(/\n+/).join('</p><p>')}</p>`;
+  processed = processed.replace(bold, '<strong>$1</strong>');
+  processed = processed.replace(italic, '<em>$1</em>');
+  processed = processed.replace(usernameRegex, '<a href="/$1">$1</a>');
   return processed;
 }
