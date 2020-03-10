@@ -3,7 +3,7 @@ const atob = require('atob');
 module.exports = function(app) {
   app.use((req, res, next) => {
     // Authorization headers are used to authenticate requests from the HTTP API
-    // Basic Auth is also how we log users into the documentation! See middlewares/jwt.js
+    // Basic Auth is also how we log users into the documentation! See middleware/jwt.js
     if (req.headers.authorization) {
       try {
         const b64 = req.headers.authorization.split(' ')[1];

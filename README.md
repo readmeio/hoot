@@ -11,9 +11,9 @@ This project uses all of the following ReadMe tools and features:
 - [`rdme`](https://github.com/readmeio/rdme) to upload the OpenAPI to ReadMe's interactive [API Explorer](https://github.com/readmeio/api-explorer)
   - See the `rdme` usage in `/bin/openapi/upload.sh`
 - [ReadMe JWT](https://docs.readme.com/guides/docs/passing-data-to-jwt) to log users into the API documentation, which allows them to interact with the Hoot API using their Hoot login credentials
-  - See this example in `/middlewares/jwt.js`
+  - See this example in `/middleware/jwt.js`
 - [ReadMe API Metrics](https://readme.com/metrics), which allows users to see their API logs within the API documentation and project administrators to view insights based on API usage
-  - See this example in `/middlewares/metrics.js`
+  - See this example in `/middleware/metrics.js`
 - [`@readme/eslint-config`](https://github.com/readmeio/eslint-config), which ensures that this codebase conforms to ReadMe's core coding standards
   - Run `npm test` to test the codebase
   
