@@ -68,7 +68,7 @@ router.get('/:id', (req, res) => {
     if (err) return res.status(404).send('Unable to locate that specified hoot id!');
 
     return res.json(hoot);
-  });
+  }).populate('replyto');
 });
 
 /*
