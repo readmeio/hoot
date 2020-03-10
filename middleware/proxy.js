@@ -6,9 +6,7 @@
 // Info on the header: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
 // Info on the issue: https://support.glitch.com/t/x-forwarded-proto-contains-multiple-protocols/17219
 
-module.exports = function(app) {
-  app.use((req, res, next) => {
-    req.headers['x-forwarded-proto'] = req.protocol;
-    next();
-  });
+module.exports = (req, res, next) => {
+  req.headers['x-forwarded-proto'] = req.protocol;
+  next();
 };

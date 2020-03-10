@@ -4,8 +4,8 @@ const jwt = require('./jwt');
 const metrics = require('./metrics');
 
 module.exports = function(app) {
-  proxy(app);
-  authorization(app);
-  jwt(app);
-  metrics(app);
+  app.use(proxy);
+  app.use(authorization);
+  app.use(jwt);
+  app.use(metrics);
 };
