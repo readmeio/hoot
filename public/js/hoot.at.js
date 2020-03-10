@@ -203,10 +203,8 @@ function addHoot(hoot) {
 }
 
 function markdown(text) {
-  // eslint-disable-next-line unicorn/no-unsafe-regex
-  const bold = /\*\*(\S(.*?\S)?)\*\*/gm;
-  // eslint-disable-next-line unicorn/no-unsafe-regex
-  const italic = /\*(\S(.*?\S)?)\*/gm;
+  const bold = /\*\*(.*?)\*\*/gm;
+  const italic = /\*(.*?)\*/gm;
   const usernameRegex = /(@[a-zA-Z0-9-_]+)/gm;
 
   let processed = text || '';
