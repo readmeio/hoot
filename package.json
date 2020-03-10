@@ -29,8 +29,6 @@
     "express": "^4.14.0",
     "forever": "^0.15.2",
     "jsonwebtoken": "^8.3.0",
-    "lodash": "^4.17.15",
-    "md5": "^2.2.1",
     "mongodb-memory-server": "^2.7.2",
     "mongoose": "^5.9.4",
     "nodemon": "^2.0.2",
