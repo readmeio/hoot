@@ -75,5 +75,5 @@ app.get('/hoot/:id', (req, res) => res.render('home', { hoot: req.params.id }));
 app.get('/@:user', (req, res) => res.render('home', { username: req.params.user }));
 
 app.listen(utils.getPort(), () => {
-  console.log(`hoot.at app started at ${utils.getBaseUrl()}`);
+  console.log(`Hoot app started at ${utils.getBaseUrl()}`);
 });

@@ -6,7 +6,7 @@ const definitionBase = {
   'x-api-id': `hoot-${process.env.PROJECT_ID || 'test'}`,
   info: {
     version: '1.0',
-    title: 'Hoot.at',
+    title: 'Hoot',
     license: {
       name: 'ISC',
     },
