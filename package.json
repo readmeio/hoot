@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "eslint -f unix . --ext js && prettier --list-different \"./**/**.js\"",
+    "test": "eslint . --ext js && prettier --list-different \"./**/**.js\"",
     "posttest": "bash ./bin/openapi/generate.sh && swagger-cli validate openapi.json",
     "start": "nodemon index.js",
     "upload": "bash ./bin/openapi/upload.sh"
