@@ -19,7 +19,7 @@ mongoServer
   .getConnectionString()
   .then(mongoUri => mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true }));
 
-require('./bin/hoot.model.js');
+require('./lib/hoot.model.js');
 
 const Hoot = mongoose.model('Hoot');
 
@@ -29,7 +29,7 @@ Hoot.create(require('./lib/fixtures'));
 const app = express();
 
 // Get project settings via ReadMe API
-require('./bin/readme.js')(app).catch(err => {
+require('./lib/readme.js')(app).catch(err => {
   console.error(err);
   process.exit(1);
 });
