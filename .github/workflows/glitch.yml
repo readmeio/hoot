@@ -8,7 +8,6 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    name: Sync to Glitch Project
     steps:
     - name: Execute Sync
       uses: kanadgupta/glitch-sync@master
