@@ -214,23 +214,23 @@ nav a:hover {
     color: #00ACEE;
 }
 
-.post .favorite .fa {
+.post .like .fa {
     margin-right: 5px;
 }
 
-.post .favorite .fa-star {
+.post .like .fa-heart {
     display: none;
 }
 
-.post .favorite.favorited {
-    color: #f1b347;
+.post .like.liked {
+    color: #e0245e;
 }
 
-.post .favorite.favorited .fa-star {
+.post .like.liked .fa-heart {
     display: inline;
 }
 
-.post .favorite.favorited .fa-star-o {
+.post .like.liked .fa-heart-o {
     display: none;
 }
 

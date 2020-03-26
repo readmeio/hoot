@@ -167,25 +167,25 @@ function addHoot(hoot) {
 
   $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
 
-  const $favorite = $(username ? '<a>' : '<span>', {
+  const $like = $(username ? '<a>' : '<span>', {
     href: '',
-    class: 'favorite',
-    html: `favorite (<span>${hoot.favorites.length}</span>)`,
+    class: 'like',
+    html: `<span>${hoot.likes.length}</span>`,
   });
 
-  $favorite.prepend($('<i>', { class: 'fa fa-star' }));
-  $favorite.prepend($('<i>', { class: 'fa fa-star-o' }));
+  $like.prepend($('<i>', { class: 'fa fa-heart' }));
+  $like.prepend($('<i>', { class: 'fa fa-heart-o' }));
 
-  $actions.append($favorite);
+  $actions.append($like);
 
   if (username) {
     $actions.append($('<span>').html('&nbsp;&nbsp;&middot;&nbsp;&nbsp;'));
 
-    $favorite.toggleClass('favorited', hoot.favorites.indexOf(username) >= 0);
-    $favorite.click(() => {
-      $.post(`/api/hoot/${hoot._id}/favorite`, updatedHoot => {
-        $favorite.find('span').text(updatedHoot.favorites.length);
-        $favorite.toggleClass('favorited', updatedHoot.favorites.indexOf(username) >= 0);
+    $like.toggleClass('liked', hoot.likes.indexOf(username) >= 0);
+    $like.click(() => {
+      $.post(`/api/hoot/${hoot._id}/like`, updatedHoot => {
+        $like.find('span').text(updatedHoot.likes.length);
+        $like.toggleClass('liked', updatedHoot.likes.indexOf(username) >= 0);
       });
       return false;
     });

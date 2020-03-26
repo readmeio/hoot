@@ -72,19 +72,19 @@ router.get('/:id', (req, res) => {
 });
 
 /*
- * @oas [post] /hoot/{id}/favorite
- * summary: Favorite hoot
+ * @oas [post] /hoot/{id}/like
+ * summary: Like a hoot
  * tags: ['Hoots']
- * description: Add a favorite to a hoot
+ * description: Add a like to a hoot
  * requestBody:
  *   content:
  *     application/json:
  *       schema:
  *         type: object
  *         properties:
- *           favorited:
+ *           liked:
  *             type: boolean
- *             description: Boolean based on if you're adding/removing a favorite (defaults to toggle)
+ *             description: Boolean based on if you're adding/removing a like (defaults to toggle)
  *
  * parameters:
  *   - (path) id* {string} The id of the hoot you want
@@ -98,19 +98,15 @@ router.get('/:id', (req, res) => {
  * security:
  *   - basicAuth: []
  */
-router.post('/:id/favorite', (req, res) => {
+router.post('/:id/like', (req, res) => {
   if (!req.params.id) return res.status(400).send('You need to include a hoot id!');
   return Hoot.findOne({ _id: req.params.id }, (err, hoot) => {
     if (err) return res.status(404).send('Unable to locate that specified hoot id!');
-    const previouslyLiked = hoot.favorites.includes(req.user);
-    hoot.favorites = hoot.favorites.filter(favorite => favorite !== req.user);
+    const previouslyLiked = hoot.likes.includes(req.user);
+    hoot.likes = hoot.likes.filter(like => like !== req.user);
 
-    if (
-      req.body.favorited === true ||
-      req.body.favorited === 'true' ||
-      (req.body.favorited === undefined && !previouslyLiked)
-    ) {
-      hoot.favorites.push(req.user);
+    if (req.body.liked === true || req.body.liked === 'true' || (req.body.liked === undefined && !previouslyLiked)) {
+      hoot.likes.push(req.user);
     }
     return hoot.save((_err, _hoot) => {
       return res.json(_hoot);
