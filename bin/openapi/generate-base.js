@@ -4,6 +4,9 @@ const utils = require('../../lib/utils');
 const definitionBase = {
   openapi: '3.0.0',
   'x-api-id': `hoot-${process.env.PROJECT_ID || 'test'}`,
+  // The CORS proxy should be disabled if Hoot is running on localhost!
+  // Docs: https://docs.readme.com/guides/docs/openapi-extensions#section-cors-proxy-enabled
+  'x-proxy-enabled': !utils.getBaseUrl().includes('localhost'),
   info: {
     version: '1.0',
     title: 'Hoot',
