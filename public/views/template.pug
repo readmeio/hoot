@@ -17,11 +17,11 @@ body
       if user
         a(href=`/@${user}`) @#{user}
         .middot
-        a(href=jwt) API Docs
+        a(href=jwt target="_blank") API Docs
         .middot
         a(href="/logout") Log Out
       else
-        a(href=docsUrl) API Docs
+        a(href=docsUrl target="_blank") API Docs
         .middot
         a(href="/login") Log In
     a(href="/home")
