@@ -61,6 +61,8 @@ router.post('/', (req, res) => {
  *       application/json:
  *         schema:
  *           $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 router.get('/:id', (req, res) => {
   if (!req.params.id) return res.status(400).send('You need to include a hoot id!');

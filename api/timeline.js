@@ -17,6 +17,8 @@ const Hoot = mongoose.model('Hoot');
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 router.get('/', (req, res) => {
@@ -45,6 +47,8 @@ router.get('/', (req, res) => {
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/Hoot'
+ * security:
+ *   - basicAuth: []
  */
 
 router.get('/:username', (req, res) => {
