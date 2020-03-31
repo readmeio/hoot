@@ -20,6 +20,12 @@ module.exports = (req, res, next) => {
     // When the users visit the site, we look for the 'username' cookie.
     // If we find the cookie, we log them in!
     req.user = req.cookies.username;
+    if (req.user) {
+      // If we log them in, we're also tacking the authorization header to the request so we're consistent.
+      // This also makes it easy to replicate the request if we're viewing its log in API Metrics!
+      const authorization = Buffer.from(`${req.user}:`).toString('base64');
+      req.headers.authorization = `Basic ${authorization}`;
+    }
   }
   res.locals.user = req.user;
   next();
