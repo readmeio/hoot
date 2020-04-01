@@ -4,7 +4,7 @@ const atob = require('atob');
 // We do not recommend performing actual authentication like this!
 
 // For simplicity's sake, we log users into Hoot with just a username and no password.
-// When users log in, we simply store their username in a cookie — see $('#login').submit() in public/js/hoot.at.js
+// When users log in, we simply store their username in a cookie — see $('#login').submit() in public/script.js
 // When users log out, we simply clear the cookie — see the /logout route in index.js
 
 module.exports = (req, res, next) => {
