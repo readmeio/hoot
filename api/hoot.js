@@ -61,16 +61,18 @@ router.post('/', (req, res) => {
  *       application/json:
  *         schema:
  *           $ref: '#/components/schemas/Hoot'
+ *   '404':
+ *     description: hoot not found
  * security:
  *   - basicAuth: []
  */
-router.get('/:id', (req, res) => {
-  if (!req.params.id) return res.status(400).send('You need to include a hoot id!');
-  return Hoot.findOne({ _id: req.params.id }, (err, hoot) => {
-    if (err) return res.status(404).send('Unable to locate that specified hoot id!');
-
-    return res.json(hoot);
-  }).populate('replyto');
+router.get('/:id', async (req, res) => {
+  let hoot;
+  try {
+    hoot = await Hoot.findOne({ _id: req.params.id }).populate('replyto');
+  } catch (e) {} // eslint-disable-line no-empty
+  if (!hoot) return res.status(404).send('Unable to locate that specified hoot id!');
+  return res.json(hoot);
 });
 
 /*
@@ -97,22 +99,30 @@ router.get('/:id', (req, res) => {
  *       application/json:
  *         schema:
  *           $ref: '#/components/schemas/Hoot'
+ *   '404':
+ *     description: hoot not found
+ *   '500':
+ *     description: server error
  * security:
  *   - basicAuth: []
  */
-router.post('/:id/like', (req, res) => {
-  if (!req.params.id) return res.status(400).send('You need to include a hoot id!');
-  return Hoot.findOne({ _id: req.params.id }, (err, hoot) => {
-    if (err) return res.status(404).send('Unable to locate that specified hoot id!');
-    const previouslyLiked = hoot.likes.includes(req.user);
-    hoot.likes = hoot.likes.filter(like => like !== req.user);
+router.post('/:id/like', async (req, res) => {
+  let hoot;
+  try {
+    hoot = await Hoot.findOne({ _id: req.params.id });
+  } catch (e) {} // eslint-disable-line no-empty
+  if (!hoot) return res.status(404).send('Unable to locate that specified hoot id!');
 
-    if (req.body.liked === true || req.body.liked === 'true' || (req.body.liked === undefined && !previouslyLiked)) {
-      hoot.likes.push(req.user);
-    }
-    return hoot.save((_err, _hoot) => {
-      return res.json(_hoot);
-    });
+  const previouslyLiked = hoot.likes.includes(req.user);
+  hoot.likes = hoot.likes.filter(like => like !== req.user);
+
+  const { liked } = req.body;
+  if (liked || (liked === undefined && !previouslyLiked)) {
+    hoot.likes.push(req.user);
+  }
+  return hoot.save((_err, _hoot) => {
+    if (_err) return res.status(500).send(_err.message);
+    return res.json(_hoot);
   });
 });
 
