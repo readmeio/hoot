@@ -1,5 +1,3 @@
-const atob = require('atob');
-
 // DISCLAIMER: This authorization flow is simplified is purely for demonstrative purposes!
 // We do not recommend performing actual authentication like this!
 
@@ -13,7 +11,7 @@ module.exports = (req, res, next) => {
   if (req.headers.authorization) {
     try {
       const b64 = req.headers.authorization.split(' ')[1];
-      const [user] = atob(b64).split(':');
+      const [user] = Buffer.from(b64, 'base64').toString('utf8').split(':');
       req.user = user;
     } catch (e) {} // eslint-disable-line no-empty
   } else {
