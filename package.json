@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "bad-words": "^3.0.3",
+    "bent": "^7.1.2",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
@@ -31,8 +32,7 @@
     "mongodb-memory-server": "^6.5.2",
     "mongoose": "^5.9.4",
     "pug": "^2.0.4",
-    "readmeio": "^2.0.0",
-    "tiny-json-http": "^7.1.2"
+    "readmeio": "^2.0.0"
   },
   "devDependencies": {
     "@readme/eslint-config": "^2.0.3",
