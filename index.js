@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 if (!process.env.API_KEY) {
-  throw new Error('Missing `API_KEY` env variable');
+  throw new Error('Oops! The ReadMe API key is missing. Check your .env file!');
 }
 
 const express = require('express');
