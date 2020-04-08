@@ -39,7 +39,7 @@
     "eslint": "^6.2.0",
     "prettier": "^2.0.2",
     "rdme": "^3.7.6",
-    "swagger-cli": "^3.0.1",
+    "swagger-cli": "^4.0.2",
     "swagger-inline": "^3.0.3"
   },
   "prettier": "@readme/eslint-config/prettier"
