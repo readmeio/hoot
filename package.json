@@ -37,7 +37,7 @@
   "devDependencies": {
     "@readme/eslint-config": "^2.0.3",
     "eslint": "^6.2.0",
-    "prettier": "^2.0.2",
+    "prettier": "^2.0.4",
     "rdme": "^3.7.6",
     "swagger-cli": "^4.0.2",
     "swagger-inline": "^3.0.3"
