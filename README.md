@@ -10,7 +10,7 @@
 
 - [ReadMe API Metrics](https://readme.com/metrics), which allows users to see their API logs within the API documentation and project administrators to view insights based on API usage
   - See this example in `/middleware/metrics.js`
-- [ReadMe JWT](https://docs.readme.com/guides/docs/passing-data-to-jwt) to log users into the API documentation, which allows them to interact with the Hoot API using their Hoot login credentials
+- [ReadMe Custom Login](https://docs.readme.com/guides/docs/custom-login-with-readme) to log users into the API documentation, which allows them to interact with the Hoot API using their Hoot login credentials
   - See this example in `/middleware/jwt.js`
 - [`swagger-inline`](https://github.com/readmeio/swagger-inline) to generate a full OpenAPI document using in-line comments from the code in the `/api` directory
   - See the `swagger-inline` usage in `/bin/openapi/generate.sh`
