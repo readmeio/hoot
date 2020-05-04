@@ -35,7 +35,7 @@
     "readmeio": "^2.0.2"
   },
   "devDependencies": {
-    "@readme/eslint-config": "^2.0.4",
+    "@readme/eslint-config": "^2.0.6",
     "eslint": "^6.2.0",
     "prettier": "^2.0.5",
     "rdme": "^3.7.11",
