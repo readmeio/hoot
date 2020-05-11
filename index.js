@@ -58,17 +58,21 @@ app.use('/api', require('./api'));
 // Load standard routes
 app.set('view engine', 'pug');
 app.get('/', (req, res) => res.redirect('/home'));
+app.get('/login', (req, res) => {
+  // If they're already logged in, don't show login page
+  if (req.user) {
+    // if this option is included, send them back to the ReadMe docs!
+    if (req.query.readme) return res.redirect(res.locals.jwt);
+    return res.redirect('/home');
+  }
+  return res.render('login');
+});
+
 app.get('/logout', (req, res) => {
   delete res.clearCookie('username');
   res.redirect('/');
 });
-app.get('/:page', (req, res, next) => {
-  const { page } = req.params;
-
-  if (['login', 'home'].indexOf(page) < 0) return next();
-
-  return res.render(page, {});
-});
+app.get('/home', (req, res) => res.render('home'));
 
 app.get('/hoot/:id', (req, res) => res.render('home', { hoot: req.params.id }));
 
