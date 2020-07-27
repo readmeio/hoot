@@ -8,7 +8,7 @@
     "prettier": "prettier --list-different --write \"./**/**.js\"",
     "start": "node index.js",
     "test": "eslint . --ext js && prettier --list-different \"./**/**.js\"",
-    "upload": "bash ./bin/openapi/upload.sh"
+    "upload": "export $(grep -v '^#' .env | xargs) && bash ./bin/openapi/upload.sh"
   },
   "repository": {
     "type": "git",
