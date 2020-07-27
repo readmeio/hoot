@@ -31,21 +31,3 @@ The Custom Login and API Metrics examples in this code are **simplified and for 
 Click the **Tools** button in the lower-lefthand corner and select **Terminal** (see image below). If you can't see the **Tools** button, you'll need to [remix the project](https://glitch.com/edit/#!/remix/hoot) first!
 
 <img width="200" alt="Glitch Terminal Screenshot" src="https://user-images.githubusercontent.com/8854718/80822049-7eb3e080-8b9f-11ea-8512-2d4be9d5a6c1.png">
-
-#### My `.env` is populated with a valid API key, but I'm still seeing an error when trying to upload my OpenAPI file. Help!
-
-In certain environments, Bash scripts don't automatically read variables from your `.env` file. To set those variables, run the following command in your console:
-
-```
-export $(grep -v '^#' .env | xargs)
-```
-
-- **Note**: this only loads the `.env` in to the **current** shell, so you'll have to run this every time you open a new console window!
-
-You can verify that your API key was properly set by running the following:
-
-```
-echo $API_KEY
-```
-
-Once the `$API_KEY` variable has been properly set, you should be able to run `npm run upload` with no issues!
