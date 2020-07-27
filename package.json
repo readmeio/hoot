@@ -32,7 +32,7 @@
     "mongodb-memory-server": "^6.6.1",
     "mongoose": "^5.9.21",
     "pug": "^3.0.0",
-    "readmeio": "^2.1.5"
+    "readmeio": "^3.1.0"
   },
   "devDependencies": {
     "@readme/eslint-config": "^2.2.0",
