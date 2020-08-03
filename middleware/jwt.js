@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
   const project = req.app.get('project');
 
   // If the user is not logged in, we give them a standard link to the API Docs (see public/views/template.pug)
-  const docsUrl = `${project.baseUrl}reference`;
+  const docsUrl = `${project.baseUrl}/reference`;
   res.locals.docsUrl = docsUrl;
 
   if (req.user) {
