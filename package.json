@@ -30,7 +30,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^6.6.3",
-    "mongoose": "^5.9.27",
+    "mongoose": "^5.10.0",
     "pug": "^3.0.0",
     "readmeio": "^3.1.2"
   },
