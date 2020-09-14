@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "bad-words": "^3.0.3",
-    "bent": "^7.3.10",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -31,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^6.6.7",
     "mongoose": "^5.10.3",
+    "node-fetch": "^2.6.1",
     "pug": "^3.0.0",
     "readmeio": "^4.0.0"
   },
