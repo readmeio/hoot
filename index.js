@@ -15,9 +15,7 @@ const MongoMemoryServer = require('mongodb-memory-server').default;
 
 const mongoServer = new MongoMemoryServer();
 
-mongoServer
-  .getConnectionString()
-  .then(mongoUri => mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true }));
+mongoServer.getUri().then(mongoUri => mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true }));
 
 require('./lib/hoot.model.js');
 
