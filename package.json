@@ -32,7 +32,7 @@
     "mongoose": "^5.11.4",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2",
-    "readmeio": "^4.0.2"
+    "readmeio": "^4.2.0"
   },
   "devDependencies": {
     "@readme/eslint-config": "^2.2.0",
