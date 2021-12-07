@@ -61,6 +61,7 @@ const definitionBase = {
             type: 'string',
             description: 'The under-280-character content you want to hoot',
             example: 'just setting up my hoot',
+            maxLength: 280,
           },
         },
       },
