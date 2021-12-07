@@ -17,8 +17,8 @@
   "author": "ReadMe",
   "license": "ISC",
   "engines": {
-    "node": "12.16.1",
-    "npm": "^6.13.4"
+    "node": "14",
+    "npm": "^7"
   },
   "dependencies": {
     "bad-words": "^3.0.4",
