@@ -14,6 +14,16 @@ const definitionBase = {
     },
   },
   paths: {},
+  tags: [
+    {
+      name: 'Hoots',
+      description: 'This endpoint is for individual Hoots.',
+    },
+    {
+      name: 'Timeline',
+      description: 'This endpoint is for Hoot timelines.',
+    },
+  ],
   servers: [
     {
       url: `https://{customDomain}/api`,
