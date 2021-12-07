@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
  * tags: ['Hoots']
  * description: Get a specific hoot
  * parameters:
- *   - (path) id* {string} The id of the hoot you want
+ *   - $ref: '#/components/parameters/id'
  * responses:
  *   '200':
  *     description: successfully retrieved hoot
@@ -109,7 +109,7 @@ router.get('/:id', async (req, res) => {
  *             description: Boolean based on if you're adding/removing a like (defaults to toggle)
  *
  * parameters:
- *   - (path) id* {string} The id of the hoot you want
+ *   - $ref: '#/components/parameters/id'
  * responses:
  *   '200':
  *     description: successfully liked (or unliked) hoot

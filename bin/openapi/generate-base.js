@@ -36,6 +36,16 @@ const definitionBase = {
     },
   ],
   components: {
+    parameters: {
+      id: {
+        name: 'id',
+        in: 'path',
+        schema: { type: 'string' },
+        description: 'The id of the hoot you want',
+        required: true,
+        example: '5c3e39af342143680d31775c',
+      },
+    },
     securitySchemes: {
       basicAuth: {
         type: 'http',
