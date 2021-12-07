@@ -16,7 +16,23 @@ const definitionBase = {
   paths: {},
   servers: [
     {
-      url: `${utils.getBaseUrl()}/api`,
+      url: `https://{customDomain}/api`,
+      variables: {
+        customDomain: {
+          default: 'hoot.at',
+        },
+      },
+    },
+    {
+      url: 'https://{subdomain}.glitch.me/api',
+      variables: {
+        subdomain: {
+          default: 'hoot',
+        },
+      },
+    },
+    {
+      url: `http://localhost:4007/api`,
     },
   ],
   components: {
