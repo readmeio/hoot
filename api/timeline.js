@@ -10,13 +10,13 @@ const Hoot = mongoose.model('Hoot');
  * tags: ['Timeline']
  * responses:
  *   '200':
- *     description: successful operation
+ *     description: successfully retrieved all hoots
  *     content:
  *       application/json:
  *         schema:
  *           type: array
  *           items:
- *             $ref: '#/components/schemas/Hoot'
+ *             $ref: '#/components/schemas/BigHoot'
  * security:
  *   - basicAuth: []
  */
@@ -40,13 +40,13 @@ router.get('/', (req, res) => {
  *   - (path) username* {string} The username you want to see hoots for
  * responses:
  *   '200':
- *     description: successful operation
+ *     description: successfully retrieved user's hoots
  *     content:
  *       application/json:
  *         schema:
  *           type: array
  *           items:
- *             $ref: '#/components/schemas/Hoot'
+ *             $ref: '#/components/schemas/BigHoot'
  * security:
  *   - basicAuth: []
  */

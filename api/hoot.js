@@ -20,7 +20,25 @@ const filter = new Filter({
  *   content:
  *     application/json:
  *       schema:
- *         $ref: '#/components/schemas/Hoot'
+ *         $ref: '#/components/schemas/NewHoot'
+ * responses:
+ *   '201':
+ *     description: successfully created hoot
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#/components/schemas/BigHoot'
+ *   '400':
+ *     description: invalid hoot data received
+ *     content:
+ *       'text/html':
+ *         examples:
+ *           MissingBodyExample:
+ *             summary: Missing Body Example
+ *             description: Longer Description of Missing Body Example
+ *             value: 'MissingBody: You need to include a body'
+ *   '500':
+ *     description: server error
  * security:
  *   - basicAuth: []
  */
@@ -42,7 +60,7 @@ router.post('/', (req, res) => {
     }
 
     return _tweet.populate('replyto', (_err, __tweet) => {
-      res.json(__tweet);
+      return res.status(201).json(__tweet);
     });
   });
 });
@@ -56,11 +74,11 @@ router.post('/', (req, res) => {
  *   - (path) id* {string} The id of the hoot you want
  * responses:
  *   '200':
- *     description: successful operation
+ *     description: successfully retrieved hoot
  *     content:
  *       application/json:
  *         schema:
- *           $ref: '#/components/schemas/Hoot'
+ *           $ref: '#/components/schemas/BigHoot'
  *   '404':
  *     description: hoot not found
  * security:
@@ -94,11 +112,11 @@ router.get('/:id', async (req, res) => {
  *   - (path) id* {string} The id of the hoot you want
  * responses:
  *   '200':
- *     description: successful operation
+ *     description: successfully liked (or unliked) hoot
  *     content:
  *       application/json:
  *         schema:
- *           $ref: '#/components/schemas/Hoot'
+ *           $ref: '#/components/schemas/SmolHoot'
  *   '404':
  *     description: hoot not found
  *   '500':

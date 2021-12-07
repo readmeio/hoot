@@ -27,19 +27,102 @@ const definitionBase = {
       },
     },
     schemas: {
-      Hoot: {
+      HootPost: {
         type: 'object',
         required: ['post'],
         properties: {
           post: {
             type: 'string',
             description: 'The under-280-character content you want to hoot',
-          },
-          replyto: {
-            type: 'string',
-            description: "Optional id of the hoot you're replying to",
+            example: 'just setting up my hoot',
           },
         },
+      },
+      ReplyToString: {
+        type: 'object',
+        properties: {
+          replyto: {
+            type: 'string',
+            description: 'Optional id of the hoot being replied to',
+            example: '5c3e39af342143680d31775c',
+          },
+        },
+      },
+      NewHoot: {
+        type: 'object',
+        allOf: [
+          {
+            $ref: '#/components/schemas/HootPost',
+          },
+          {
+            $ref: '#/components/schemas/ReplyToString',
+          },
+        ],
+      },
+      AdditionalHootProperties: {
+        type: 'object',
+        properties: {
+          _id: {
+            type: 'string',
+            description: 'The unique, auto-generated ID for the hoot',
+            example: '5c3e39af342143680d31775c',
+          },
+          createdAt: {
+            type: 'string',
+            format: 'date-time',
+          },
+          likes: {
+            type: 'array',
+            description: 'An array containing usernames of the users that liked this hoot',
+            items: {
+              type: 'string',
+              example: 'owlet',
+            },
+          },
+          username: {
+            type: 'string',
+            example: 'owlbert',
+            description: 'The username for the user that created this hoot',
+          },
+        },
+      },
+      SmolHoot: {
+        type: 'object',
+        allOf: [
+          {
+            $ref: '#/components/schemas/AdditionalHootProperties',
+          },
+          {
+            $ref: '#/components/schemas/HootPost',
+          },
+          {
+            $ref: '#/components/schemas/ReplyToString',
+          },
+        ],
+      },
+      ReplyToObject: {
+        type: 'object',
+        required: ['post'],
+        properties: {
+          replyto: {
+            type: 'object',
+            $ref: '#/components/schemas/SmolHoot',
+          },
+        },
+      },
+      BigHoot: {
+        type: 'object',
+        allOf: [
+          {
+            $ref: '#/components/schemas/AdditionalHootProperties',
+          },
+          {
+            $ref: '#/components/schemas/HootPost',
+          },
+          {
+            $ref: '#/components/schemas/ReplyToObject',
+          },
+        ],
       },
     },
   },
