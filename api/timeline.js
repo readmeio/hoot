@@ -37,7 +37,13 @@ router.get('/', (req, res) => {
  * description: Get a list of all tweets from a user
  * tags: ['Timeline']
  * parameters:
- *   - (path) username* {string} The username you want to see hoots for
+ *   - name: username
+ *     in: path
+ *     required: true
+ *     description: The username you want to see hoots for
+ *     example: owlbert
+ *     schema:
+ *       type: string
  * responses:
  *   '200':
  *     description: successfully retrieved user's hoots
