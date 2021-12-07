@@ -18,7 +18,7 @@ $(() => {
   });
 
   $('#login .username').bind('keypress', function keypress(event) {
-    const regex = new RegExp('^[a-zA-Z0-9]+$');
+    const regex = /^[a-zA-Z0-9]+$/;
     const key = !event.charCode ? event.which : event.charCode;
 
     // Allow backspace and enter

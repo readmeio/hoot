@@ -4,5 +4,5 @@ if [[ -z "${API_KEY}" ]]; then
 else
   bash ./bin/openapi/generate.sh
   echo "Loading rdme..."
-  npx rdme swagger --key $API_KEY
+  npx rdme openapi --key $API_KEY
 fi

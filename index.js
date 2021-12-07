@@ -17,7 +17,7 @@ const mongoServer = new MongoMemoryServer();
 
 mongoServer.getUri().then(mongoUri => mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true }));
 
-require('./lib/hoot.model.js');
+require('./lib/hoot.model');
 
 const Hoot = mongoose.model('Hoot');
 
@@ -27,7 +27,7 @@ Hoot.create(require('./lib/fixtures'));
 const app = express();
 
 // Get project settings via ReadMe API
-require('./lib/readme.js')(app).catch(err => {
+require('./lib/readme')(app).catch(err => {
   console.error(err);
   process.exit(1);
 });
