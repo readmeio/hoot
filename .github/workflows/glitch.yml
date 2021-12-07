@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Execute Sync
-      uses: kanadgupta/glitch-sync@master
+      uses: kanadgupta/glitch-sync@main
       with:
         project-id: '${{ secrets.projectId }}'
         auth-token: '${{ secrets.authToken }}'
