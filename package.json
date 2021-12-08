@@ -17,30 +17,30 @@
   "author": "ReadMe",
   "license": "ISC",
   "engines": {
-    "node": "12.16.1",
-    "npm": "^6.13.4"
+    "node": "14",
+    "npm": "^7"
   },
   "dependencies": {
     "bad-words": "^3.0.4",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^6.9.3",
     "mongoose": "^5.11.4",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.0",
     "pug": "^3.0.2",
-    "readmeio": "^4.0.2"
+    "readmeio": "^5.0.1"
   },
   "devDependencies": {
-    "@readme/eslint-config": "^2.2.0",
-    "eslint": "^6.2.0",
+    "@readme/eslint-config": "^8.0.3",
+    "eslint": "^8.0.0",
     "prettier": "^2.2.1",
-    "rdme": "^3.8.2",
+    "rdme": "^6.0.0",
     "swagger-cli": "^4.0.4",
-    "swagger-inline": "^3.2.2"
+    "swagger-inline": "^5.0.2"
   },
   "prettier": "@readme/eslint-config/prettier"
 }
