@@ -38,7 +38,7 @@
     "@readme/eslint-config": "^8.0.3",
     "eslint": "^8.0.0",
     "prettier": "^2.2.1",
-    "rdme": "^6.0.0",
+    "rdme": "^6.5.0",
     "swagger-cli": "^4.0.4",
     "swagger-inline": "^5.0.2"
   },
