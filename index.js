@@ -11,11 +11,12 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const utils = require('./lib/utils');
-const MongoMemoryServer = require('mongodb-memory-server').default;
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const mongoServer = new MongoMemoryServer();
-
-mongoServer.getUri().then(mongoUri => mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true }));
+MongoMemoryServer.create().then(mongoServer => {
+  const mongoUri = mongoServer.getUri();
+  mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+});
 
 require('./lib/hoot.model');
 
@@ -78,4 +79,5 @@ app.get('/@:user', (req, res) => res.render('home', { username: req.params.user 
 
 app.listen(utils.getPort(), () => {
   console.log(`Hoot app started at ${utils.getBaseUrl()}`);
+  console.log(`Listening on port ${utils.getPort()}`);
 });
