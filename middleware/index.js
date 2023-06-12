@@ -1,7 +1,7 @@
-const proxy = require('./proxy');
 const authorization = require('./authorization');
 const jwt = require('./jwt');
 const metrics = require('./metrics');
+const proxy = require('./proxy');
 
 module.exports = function (app) {
   app.use(proxy);

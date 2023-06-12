@@ -1,7 +1,7 @@
 {
   "extends": "@readme/eslint-config",
   "rules": {
-    "no-console": ["error", {"allow": ["log", "warn", "error"]}],
+    "no-console": ["error", { "allow": ["log", "warn", "error"] }],
     "no-param-reassign": "off",
     "no-underscore-dangle": "off"
   }

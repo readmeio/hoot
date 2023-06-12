@@ -1,9 +1,8 @@
+const Filter = require('bad-words');
 const router = require('express').Router();
 const mongoose = require('mongoose');
 
 const Hoot = mongoose.model('Hoot');
-
-const Filter = require('bad-words');
 
 const filter = new Filter({
   placeHolder: 'X',

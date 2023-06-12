@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 const utils = require('../../lib/utils');
 
 const definitionBase = {
@@ -26,7 +27,7 @@ const definitionBase = {
   ],
   servers: [
     {
-      url: `https://{customDomain}/api`,
+      url: 'https://{customDomain}/api',
       variables: {
         customDomain: {
           default: 'hoot.at',
@@ -42,7 +43,7 @@ const definitionBase = {
       },
     },
     {
-      url: `http://localhost:4007/api`,
+      url: 'http://localhost:4007/api',
     },
   ],
   components: {

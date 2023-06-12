@@ -4,14 +4,14 @@ if (!process.env.API_KEY) {
   throw new Error('Oops! The ReadMe API key is missing. Check your .env file!');
 }
 
-const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const express = require('express');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+const mongoose = require('mongoose');
 
 const utils = require('./lib/utils');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 
 MongoMemoryServer.create().then(mongoServer => {
   const mongoUri = mongoServer.getUri();

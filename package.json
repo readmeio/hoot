@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "posttest": "bash ./bin/openapi/generate.sh && swagger-cli validate openapi.json",
+    "posttest": "bash ./bin/openapi/generate.sh && rdme openapi:validate openapi.json",
     "prettier": "prettier --list-different --write \"./**/**.js\"",
     "start": "node index.js",
-    "test": "eslint . --ext js && prettier --list-different \"./**/**.js\"",
+    "test": "eslint . && prettier --check .",
     "upload": "export $(grep -v '^#' .env | xargs) && bash ./bin/openapi/upload.sh"
   },
   "repository": {
@@ -17,8 +17,7 @@
   "author": "ReadMe",
   "license": "ISC",
   "engines": {
-    "node": "14",
-    "npm": "^7"
+    "node": "^16"
   },
   "dependencies": {
     "bad-words": "^3.0.4",
@@ -35,11 +34,10 @@
     "readmeio": "^5.0.1"
   },
   "devDependencies": {
-    "@readme/eslint-config": "^8.0.3",
-    "eslint": "^8.0.0",
-    "prettier": "^2.2.1",
-    "rdme": "^6.0.0",
-    "swagger-cli": "^4.0.4",
+    "@readme/eslint-config": "^10.6.0",
+    "eslint": "^8.42.0",
+    "prettier": "^2.8.8",
+    "rdme": "^8.6.4",
     "swagger-inline": "^5.0.2"
   },
   "prettier": "@readme/eslint-config/prettier"
