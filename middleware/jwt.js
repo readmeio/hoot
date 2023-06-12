@@ -20,6 +20,7 @@ module.exports = async (req, res, next) => {
       // See the docs: https://docs.readme.com/metrics/docs/showing-api-logs-to-users#section-enabling-api-logs-in-docs
       id: req.user,
       name: req.user,
+      email: `${req.user}@hoot.at`,
       apiKey: req.user,
       // The basicAuth object below contains the 'user' and 'pass' fields needed to log the user into API Explorer!
       // See the docs: https://docs.readme.com/guides/docs/passing-data-to-jwt#section-basic-auth
