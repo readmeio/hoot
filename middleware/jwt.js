@@ -16,15 +16,12 @@ module.exports = async (req, res, next) => {
     // The user is logged in, so we construct the JWT payload. This is sent to ReadMe to log them into the docs!
     // You can read more about JWT (JSON Web Token) here: https://jwt.io
     const user = {
-      // The 'id' field below is used in the payload to identify the user and show their logs in the documentation!
-      // See the docs: https://docs.readme.com/metrics/docs/showing-api-logs-to-users#section-enabling-api-logs-in-docs
-      id: req.user,
       name: req.user,
       email: `${req.user}@hoot.at`,
-      apiKey: req.user,
-      // The basicAuth object below contains the 'user' and 'pass' fields needed to log the user into API Explorer!
-      // See the docs: https://docs.readme.com/guides/docs/passing-data-to-jwt#section-basic-auth
-      basicAuth: { user: req.user, pass: '' },
+      // The 'user' and 'pass' fields are prefilled as Basic Authentication credentials in the API Reference
+      // See the docs: https://docs.readme.com/main/docs/user-data-options
+      user: `hoot_${req.user}`,
+      pass: '',
     };
 
     const jwt = sign(user, project.jwtSecret);
