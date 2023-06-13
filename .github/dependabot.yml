@@ -5,3 +5,10 @@ updates:
     schedule:
       interval: monthly
     open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: node-fetch
+        versions:
+          - '>= 3'
+      - dependency-name: mongoose
+        versions:
+          - '>= 6'
