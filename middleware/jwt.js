@@ -35,7 +35,7 @@ module.exports = async (req, res, next) => {
     // More info: https://docs.readme.com/metrics/docs/sending-logs-to-readme-with-cloudflare
     res.set('x-readme-id', req.user);
     res.set('x-readme-label', req.user);
-    res.set('x-readme-email', req.user);
+    res.set('x-readme-email', req.email);
   }
 
   return next();
