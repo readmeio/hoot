@@ -29,6 +29,7 @@ const app = express();
 
 // Get project settings via ReadMe API
 require('./lib/readme')(app).catch(err => {
+  // eslint-disable-next-line no-console
   console.error(err);
   process.exit(1);
 });
@@ -78,6 +79,8 @@ app.get('/hoot/:id', (req, res) => res.render('home', { hoot: req.params.id }));
 app.get('/@:user', (req, res) => res.render('home', { username: req.params.user }));
 
 app.listen(utils.getPort(), () => {
+  // eslint-disable-next-line no-console
   console.log(`Hoot app started at ${utils.getBaseUrl()}`);
+  // eslint-disable-next-line no-console
   console.log(`Listening on port ${utils.getPort()}`);
 });
