@@ -17,10 +17,10 @@ module.exports = async (req, res, next) => {
     // You can read more about JWT (JSON Web Token) here: https://jwt.io
     const user = {
       name: req.user,
-      email: `${req.user}@hoot.at`,
+      email: req.email,
       // The 'user' and 'pass' fields are prefilled as Basic Authentication credentials in the API Reference
       // See the docs: https://docs.readme.com/main/docs/user-data-options
-      user: `hoot_${req.user}`,
+      user: req.user,
       pass: '',
     };
 
