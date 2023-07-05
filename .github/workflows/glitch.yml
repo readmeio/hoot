@@ -9,6 +9,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      # Glitch project: https://glitch.com/edit/#!/hoot
       - name: Execute Sync
         uses: kanadgupta/glitch-sync@main
         with:
