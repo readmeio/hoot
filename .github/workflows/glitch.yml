@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    # Every sixth hour
-    - cron: '0 */6 * * *'
 
 jobs:
   sync:
