@@ -1,0 +1,16 @@
+# Configures the hoot-at service in Render.
+
+services:
+  - name: hoot-at
+    type: web
+    runtime: node
+    buildCommand: npm ci
+    startCommand: npm start
+    region: oregon
+    # Starter plan includes ½ CPU and 512 MB memory, and costs $7 per month
+    plan: starter
+    numInstances: 1
+    domains:
+      - hoot.at
+      - api.hoot.at
+    autoDeploy: true  # Deploys from `master`, where the Render Blueprint syncs from
