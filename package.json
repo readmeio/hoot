@@ -22,7 +22,7 @@
   "dependencies": {
     "bad-words": "^3.0.4",
     "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
     "express": "^4.17.1",
