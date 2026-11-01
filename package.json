@@ -20,7 +20,7 @@
     "node": "^16"
   },
   "dependencies": {
-    "bad-words": "^3.0.4",
+    "bad-words": "^4.1.5",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
